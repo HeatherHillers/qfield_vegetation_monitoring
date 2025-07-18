@@ -17,7 +17,7 @@ import org.qgis
 import Theme  
 
 import "qrc:/qml" as QFieldItems
-  Rectangle {
+Rectangle {
     id: pluginFrame
     anchors.fill: parent
     property color background_color: "#ffecd1"
@@ -31,7 +31,7 @@ import "qrc:/qml" as QFieldItems
         anchors.centerIn: parent
     }
     Component.onCompleted: {
-      //setup menu list models
-      iface.logMessage("Plugin component loaded file found")
+        //setup menu list models
+        iface.logMessage("Plugin component loaded file found")
     }
-  }
+}
