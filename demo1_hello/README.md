@@ -8,6 +8,8 @@ This is the simplest version.  It contains a hello world rectangle that is opene
 
 The main qml must have the name of the project.  Any component.qml that you write must be stored in a subdirectory, name not important.  Otherwise it will not be found.  This directory must be added as an attachment directory in the QField project.  
 
+Additionally, you have to go into the project page on qfield.cloud and click on "On demand attachment files download". 
+
 ### Main template structure
 
 vegetation_monitoring.qml just contains the main Item component, a button to open it, and a loader to load it.  It is equivalent to the main class of any QGIS plugin.
@@ -23,6 +25,10 @@ The Loader waits until the pluginButton is clicked to load your plugincomponent,
 ### The Plugin component
 
 plugincomponent.qml is pretty much equivalent to the main dialog in most QGIS plugins.  This is loaded and opened by the Loader in vegetation_monitoring.qml when the pluginButton is clicked.
+
+### Log Messages 
+
+iface.logMessage prints to the message log from the Loader when the button is clicked, and from the plugincomponent when the component is loaded
 
 ## Data and Project, Running the demonstration
 
