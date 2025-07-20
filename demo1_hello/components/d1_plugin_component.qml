@@ -32,6 +32,6 @@ Rectangle {
     }
     Component.onCompleted: {
         //setup menu list models
-        iface.logMessage("Plugin component loaded file found")
+        iface.logMessage("d1_plugin_component.qml loaded")
     }
 }

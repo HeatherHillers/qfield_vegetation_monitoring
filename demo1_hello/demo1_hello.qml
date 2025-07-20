@@ -24,7 +24,7 @@ Item {
     id: pluginLoader
     active: false
     anchors.fill: parent
-    source: Qt.resolvedUrl('./components/plugincomponent.qml')
+    source: Qt.resolvedUrl('./components/d1_plugin_component.qml')
   }  
 
   // open and close the Plugin
@@ -36,7 +36,7 @@ Item {
     round: true
 
     onClicked: {
-      iface.logMessage("Plugin component loaded now")
+      iface.logMessage("Loading demo1_hello/components/d1_plugin_compononent.qml")
       pluginLoader.active = !(pluginLoader.active)
     }
   }
