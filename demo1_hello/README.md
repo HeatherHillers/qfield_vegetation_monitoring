@@ -12,7 +12,7 @@ Additionally, you have to go into the project page on qfield.cloud and click on 
 
 ### Main template structure
 
-vegetation_monitoring.qml just contains the main Item component, a button to open it, and a loader to load it.  It is equivalent to the main class of any QGIS plugin.
+demo1_hello.qml just contains the main Item component, a button to open it, and a loader to load it.  It is equivalent to the main class of any QGIS plugin.
 
 ### Turn it On and Off again
 
@@ -20,11 +20,11 @@ The QfToolButton with the id pluginButton opens and closes the plugin.  I used t
 
 ### A Loader
 
-The Loader waits until the pluginButton is clicked to load your plugincomponent, which will contain the main widget.
+The Loader waits until the pluginButton is clicked to load your d1_plugin_component, which will contain the main widget.
 
 ### The Plugin component
 
-plugincomponent.qml is pretty much equivalent to the main dialog in most QGIS plugins.  This is loaded and opened by the Loader in vegetation_monitoring.qml when the pluginButton is clicked.
+d1_plugin_component.qml is pretty much equivalent to the main dialog in most QGIS plugins.  This is loaded and opened by the Loader in demo1_hello.qml when the pluginButton is clicked.
 
 ### Log Messages 
 
