@@ -1,14 +1,17 @@
 # qfield_vegetation_monitoring
 A demonstration of a qfield project plugin for the purpose of sampling vegetaton in plots.  The purpose of this code is to show how to write a qfield project plugin.
 
+Note: This plugin is being developed for use on an iPad.  At about demo3 the view on an iPhone does get cramped.
 
 ## Code Demonstrations
 
 Each Demo* project in this repository is an increasingly complex version of the vegetation_monitoring project plugin.  
 
 1. demo1_hello: This is the simplest version.  It contains a hello world rectangle that is opened and closed by a plugin button.  Start here to get the basic skeleton for your plugin.
+
 2. demo2_searchbar: This adds a searchbar to the project which has a menu populated with the plot_ids of all objects in the plots layer.  Selection of a plot changes the text of the title widget.  The menu is editable and has autocomplete.
 
+3. demo3_tabwidget:  This adds a very slick swiping tab widget.  The Tab widget uses a Repeater as a for loop to replicate the strata tabs which are going to have the same functionality, as well as for the tab buttons.  The plugin communicates the current searchBar selection to the tabWidget, using it to populate the pages with information (just the plot id).  No new api stuff here, just ui magic.
 
 ## Running the demonstration
 
