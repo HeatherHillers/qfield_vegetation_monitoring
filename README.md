@@ -13,6 +13,9 @@ Each Demo* project in this repository is an increasingly complex version of the 
 
 3. demo3_tabwidget:  This adds a very slick swiping tab widget.  The Tab widget uses a Repeater as a for loop to replicate the strata tabs which are going to have the same functionality, as well as for the tab buttons.  The plugin communicates the current searchBar selection to the tabWidget, using it to populate the pages with information (just the plot id).  No new api stuff here, just ui magic.
 
+4. demo4_header_form: This adds a form to the tabWidget's header page.  It is used to save a non spatial header table row for the plot selected in the menu.  Some more custom components are added, as well as a configurable data model for dynamically loading our field inputs, and a centralized style.
+
+
 ## Running the demonstration
 
 1. clone the repository.

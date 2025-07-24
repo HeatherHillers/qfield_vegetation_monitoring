@@ -47,14 +47,12 @@ Rectangle {
                     
                     // Connect searchbar signals to plugin frame handlers
                     item.plotNotFound.connect(function(plotId) {
-                        console.log("Plot not found:", plotId)
                         // Forward to tabwidget if it's loaded
                         if (tabWidgetComponent) {
                             tabWidgetComponent.handlePlotNotFound(plotId)
                         }
                     })
                     item.plotLoaded.connect(function(plotId) {
-                        console.log("Plot loaded:", plotId)
                         // Forward to tabwidget if it's loaded
                         if (tabWidgetComponent) {
                             tabWidgetComponent.handlePlotLoaded(plotId)
