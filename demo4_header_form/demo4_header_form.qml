@@ -9,7 +9,7 @@ import org.qgis
 import Theme  
 
 import "qrc:/qml" as QFieldItems
-/* This is the sidecar plugin for the demo4_saverow project.  */
+/* This is the sidecar plugin for the demo4_feature_form project.  */
 
 Item {  
   id: plugin
