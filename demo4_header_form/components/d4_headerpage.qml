@@ -128,7 +128,6 @@ Page {
                         if (hasUnsavedChanges) {
                             save()
                         }
-                        hasUnsavedChanges = !hasUnsavedChanges  // Toggle for testing
                     }
                 }
             }
