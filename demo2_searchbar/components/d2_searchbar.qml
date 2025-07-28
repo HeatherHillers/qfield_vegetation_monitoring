@@ -150,8 +150,6 @@ Rectangle {
       }
       feature_iterator.close()
       
-      console.log("Loaded " + count + " plots into search model")
-      
       if (count === 0) {
         layerLoadError("No plots found with plot_id attribute")
       }
