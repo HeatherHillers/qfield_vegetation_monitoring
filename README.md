@@ -15,6 +15,7 @@ Each Demo* project in this repository is an increasingly complex version of the 
 
 4. demo4_header_form: This adds a form to the tabWidget's header page.  It is used to save a non spatial header table row for the plot selected in the menu.  Some more custom components are added, as well as a configurable data model for dynamically loading our field inputs, and a centralized style.
 
+5. demo5_species_entry:  This adds a nice species entry widget to each strata page, with autosave.  It's pretty neat, I think.  The component communication gets a bit complicated.
 
 ## Running the demonstration
 
@@ -28,5 +29,6 @@ Each Demo* project in this repository is an increasingly complex version of the 
 
 1. It can be tricky to get the components and their updates to be found by qfield.  To be on certain, make sure components have unique names across projects, and test the loading of the components first before adding any functionality to them.
 2. Start QField from the command line to get qml errors. Program errors are not printed in the client's log.
-3. A synchronisation is usually not sufficient to get plugin updates.  Completely restart qfield, delete your project and download it fresh to make sure you have your latest change.
+3. A synchronisation is usually not sufficient to get plugin updates.  Completely restart qfield, delete your project and download it fresh to make sure you have your latest change.  Sometimes it will become necessary to completely delete your project from qfieldcloud in order to get an update through.
 4. Dont name properties layer, as this may clash with a qt reserved property name.
+5. The internal attribute index for a feature in qfield can be different than its attribute index in qgis, and it can change.  So you have to check the attribute index before you set a value.  Do not rely on hard coded attribute indexes.
