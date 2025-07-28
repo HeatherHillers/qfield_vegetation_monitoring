@@ -373,12 +373,12 @@ Page {
         console.log("Starting save() - inputComponents:", Object.keys(inputComponents))        
         header_layer.startEditing()
         var fid = header_feature.id
+        var fields = header_feature.fields
         
         // Save timestamp and comment
-        header_layer.changeAttributeValue(fid, 3, new Date().toISOString())
-        
+        header_layer.changeAttributeValue(fid, fields.indexOf("log_date"), new Date().toISOString())
+
         // Save comment field (will be handled by getAllFields loop below)
-        // header_layer.changeAttributeValue(fid, 3, ...)  // Now handled dynamically
         
         // Save all form fields using the data model
         if (formDataModel) {
@@ -431,8 +431,8 @@ Page {
                     
                     // Save the value to the layer
                     if (value !== undefined) {
-                        header_layer.changeAttributeValue(fid, field.attributeIndex, value)
-                        console.log("Saved field:", field.id, "at index:", field.attributeIndex, "with value:", value)
+                        header_layer.changeAttributeValue(fid, fields.indexOf(field.id), value)
+                        console.log("Saved field:", field.id, "at index:", fields.indexOf(field.id), "with value:", value)
                     }
                 } else {
                     console.log("No input component found for save:", fieldKey)
