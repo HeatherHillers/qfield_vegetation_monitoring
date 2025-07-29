@@ -1,5 +1,5 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis projectname="Demo4 Header Form" version="3.44.0-Solothurn" saveDateTime="2025-07-28T10:18:22" saveUserFull="hil" saveUser="hil">
+<qgis projectname="Demo4 Header Form" version="3.44.0-Solothurn" saveDateTime="2025-07-28T17:46:28" saveUserFull="hil" saveUser="hil">
   <homePath path=""/>
   <title>Demo4 Header Form</title>
   <transaction mode="Disabled"/>
@@ -226,7 +226,7 @@
         <Identifiable>1</Identifiable>
         <Removable>0</Removable>
         <Searchable>0</Searchable>
-        <Private>1</Private>
+        <Private>0</Private>
       </flags>
       <temporal fixedDuration="0" durationUnit="min" limitMode="0" endExpression="" accumulate="0" mode="0" enabled="0" endField="" startExpression="" startField="log_date" durationField="fid">
         <fixedRange>
@@ -1500,7 +1500,7 @@ def my_form_open(dialog, layer, feature):
   <Sensors/>
   <ProjectViewSettings UseProjectScales="0" rotation="0">
     <Scales/>
-    <DefaultViewExtent ymax="5679536.81906027719378471" xmin="288809.47044125129468739" xmax="353323.26345936930738389" ymin="5656998.728708291426301">
+    <DefaultViewExtent ymax="5679536.81906027719378471" xmin="264678.7762388571863994" xmax="377453.95766176341567189" ymin="5656998.728708291426301">
       <spatialrefsys nativeFormat="Wkt">
         <wkt>PROJCRS["ETRS89 / UTM zone 32N",BASEGEOGCRS["ETRS89",ENSEMBLE["European Terrestrial Reference System 1989 ensemble",MEMBER["European Terrestrial Reference Frame 1989"],MEMBER["European Terrestrial Reference Frame 1990"],MEMBER["European Terrestrial Reference Frame 1991"],MEMBER["European Terrestrial Reference Frame 1992"],MEMBER["European Terrestrial Reference Frame 1993"],MEMBER["European Terrestrial Reference Frame 1994"],MEMBER["European Terrestrial Reference Frame 1996"],MEMBER["European Terrestrial Reference Frame 1997"],MEMBER["European Terrestrial Reference Frame 2000"],MEMBER["European Terrestrial Reference Frame 2005"],MEMBER["European Terrestrial Reference Frame 2014"],ELLIPSOID["GRS 1980",6378137,298.257222101,LENGTHUNIT["metre",1]],ENSEMBLEACCURACY[0.1]],PRIMEM["Greenwich",0,ANGLEUNIT["degree",0.0174532925199433]],ID["EPSG",4258]],CONVERSION["UTM zone 32N",METHOD["Transverse Mercator",ID["EPSG",9807]],PARAMETER["Latitude of natural origin",0,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8801]],PARAMETER["Longitude of natural origin",9,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8802]],PARAMETER["Scale factor at natural origin",0.9996,SCALEUNIT["unity",1],ID["EPSG",8805]],PARAMETER["False easting",500000,LENGTHUNIT["metre",1],ID["EPSG",8806]],PARAMETER["False northing",0,LENGTHUNIT["metre",1],ID["EPSG",8807]]],CS[Cartesian,2],AXIS["(E)",east,ORDER[1],LENGTHUNIT["metre",1]],AXIS["(N)",north,ORDER[2],LENGTHUNIT["metre",1]],USAGE[SCOPE["Engineering survey, topographic mapping."],AREA["Europe between 6°E and 12°E: Austria; Belgium; Denmark - onshore and offshore; Germany - onshore and offshore; Norway including - onshore and offshore; Spain - offshore."],BBOX[38.76,6,84.33,12.01]],ID["EPSG",25832]]</wkt>
         <proj4>+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs</proj4>
@@ -1565,7 +1565,7 @@ def my_form_open(dialog, layer, feature):
       </spatialrefsys>
     </CoordinateCustomCrs>
   </ProjectDisplaySettings>
-  <ProjectGpsSettings destinationLayerProvider="ogr" destinationLayerName="plots" autoAddTrackVertices="0" autoCommitFeatures="0" destinationLayer="plots_7a7f72ae_2584_4d1a_bef0_842d00720ed6" destinationLayerSource="/home/hil/dev/qfield_vegetation_monitoring/demo4_header_form/vegetation.gpkg|layername=plots" destinationFollowsActiveLayer="1">
+  <ProjectGpsSettings destinationLayerProvider="ogr" destinationLayerName="plot_header" autoAddTrackVertices="0" autoCommitFeatures="0" destinationLayer="plot_header_550f9bd6_529c_4f76_ac46_7977b285f7e0" destinationLayerSource="/home/hil/dev/qfield_vegetation_monitoring/demo4_header_form/vegetation.gpkg|layername=plot_header" destinationFollowsActiveLayer="1">
     <timeStampFields/>
   </ProjectGpsSettings>
 </qgis>
