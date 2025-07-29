@@ -91,7 +91,7 @@ Rectangle {
             Layout.alignment: Qt.AlignVCenter // Vertically center the ComboBox
 
             editable: true
-            property var field_name: FIELD_NAMES.SPECIES 
+            property var field_name: fieldNames.species 
             onAccepted: {
                 save_feature(field_name, currentText);
             }
@@ -106,7 +106,7 @@ Rectangle {
             model: abundance_menu_model
             textRole: "label"
             valueRole: "value"
-            property var field_name: FIELD_NAMES.ABUNDANCE // attribute name for abundance
+            property var field_name: fieldNames.abundance // attribute name for abundance
             Layout.alignment: Qt.AlignVCenter // Vertically center the ComboBox
             onAccepted: { // This signal is usually for when the user confirms an entry, e.g., by pressing Enter in an editable ComboBox
             // Or when a selection is made and the popup closes.
@@ -126,7 +126,7 @@ Rectangle {
         TextField {
             id: comment_Input
             font.pixelSize: speciesEntryFrame.fontSize
-            property var field_name: FIELD_NAMES.COMMENT // Name for the comment attribute
+            property var field_name: fieldNames.comment // Name for the comment attribute
             Layout.alignment: Qt.AlignVCenter // Vertically center the ComboBox
             onEditingFinished: {
                 save_feature(field_name, comment_Input.text);
@@ -269,9 +269,9 @@ Rectangle {
     }
     
     // RECOMMENDATION: Define field name constants
-    readonly property QtObject FIELD_NAMES: QtObject {
-        readonly property string SPECIES: "species"
-        readonly property string ABUNDANCE: "abundance" 
-        readonly property string COMMENT: "comment"
+    readonly property QtObject fieldNames: QtObject {
+        readonly property string species: "species"
+        readonly property string abundance: "abundance"
+        readonly property string comment: "comment"
     }
 } // /speciesEntryFrame
