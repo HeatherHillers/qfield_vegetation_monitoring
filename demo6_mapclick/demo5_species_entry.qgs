@@ -1,5 +1,5 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis projectname="Demo5 Species Entry" version="3.44.0-Solothurn" saveDateTime="2025-07-28T19:15:06" saveUserFull="hil" saveUser="hil">
+<qgis projectname="Demo5 Species Entry" version="3.44.0-Solothurn" saveDateTime="2025-07-28T17:18:38" saveUserFull="hil" saveUser="hil">
   <homePath path=""/>
   <title>Demo5 Species Entry</title>
   <transaction mode="Disabled"/>
@@ -256,7 +256,7 @@
         <Identifiable>1</Identifiable>
         <Removable>1</Removable>
         <Searchable>1</Searchable>
-        <Private>1</Private>
+        <Private>0</Private>
       </flags>
       <temporal fixedDuration="0" durationUnit="min" limitMode="0" endExpression="" accumulate="0" mode="0" enabled="0" endField="" startExpression="" startField="" durationField="fid">
         <fixedRange>
@@ -594,7 +594,7 @@ def my_form_open(dialog, layer, feature):
         <Identifiable>1</Identifiable>
         <Removable>0</Removable>
         <Searchable>1</Searchable>
-        <Private>1</Private>
+        <Private>0</Private>
       </flags>
       <temporal fixedDuration="0" durationUnit="min" limitMode="0" endExpression="" accumulate="0" mode="0" enabled="0" endField="" startExpression="" startField="" durationField="">
         <fixedRange>
@@ -1456,7 +1456,7 @@ def my_form_open(dialog, layer, feature):
         <Identifiable>1</Identifiable>
         <Removable>1</Removable>
         <Searchable>1</Searchable>
-        <Private>1</Private>
+        <Private>0</Private>
       </flags>
       <temporal fixedDuration="0" durationUnit="min" limitMode="0" endExpression="" accumulate="0" mode="0" enabled="0" endField="" startExpression="" startField="" durationField="fid">
         <fixedRange>
@@ -1612,7 +1612,6 @@ def my_form_open(dialog, layer, feature):
           <Option type="List" name="dualview/previewExpressions">
             <Option type="QString" value="dqnr"/>
             <Option type="QString" value="&quot;dqnr&quot;"/>
-            <Option type="QString" value="dqnr"/>
           </Option>
           <Option type="int" name="embeddedWidgets/count" value="0"/>
           <Option type="invalid" name="variableNames"/>
@@ -1876,7 +1875,7 @@ def my_form_open(dialog, layer, feature):
         <Identifiable>1</Identifiable>
         <Removable>1</Removable>
         <Searchable>1</Searchable>
-        <Private>1</Private>
+        <Private>0</Private>
       </flags>
       <temporal fixedDuration="0" durationUnit="min" limitMode="0" endExpression="" accumulate="0" mode="0" enabled="0" endField="" startExpression="" startField="" durationField="fid">
         <fixedRange>
@@ -2404,7 +2403,7 @@ def my_form_open(dialog, layer, feature):
       </spatialrefsys>
     </CoordinateCustomCrs>
   </ProjectDisplaySettings>
-  <ProjectGpsSettings destinationLayerProvider="ogr" destinationLayerName="plots" autoAddTrackVertices="0" autoCommitFeatures="0" destinationLayer="plots_fd77d63a_30fe_4fa6_a878_217ef72db14a" destinationLayerSource="/home/hil/dev/qfield_vegetation_monitoring/demo5_species_entry/vegetation.gpkg|layername=plots" destinationFollowsActiveLayer="1">
+  <ProjectGpsSettings destinationLayerProvider="ogr" destinationLayerName="plot_header" autoAddTrackVertices="0" autoCommitFeatures="0" destinationLayer="plot_header_81a41755_e319_407d_aea3_135c22880e09" destinationLayerSource="/home/hil/dev/qfield_vegetation_monitoring/demo5_species_entry/vegetation.gpkg|layername=plot_header" destinationFollowsActiveLayer="1">
     <timeStampFields/>
   </ProjectGpsSettings>
 </qgis>
