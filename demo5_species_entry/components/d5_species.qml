@@ -273,5 +273,6 @@ Rectangle {
         readonly property string species: "species"
         readonly property string abundance: "abundance"
         readonly property string comment: "comment"
-    }
+        
+    } 
 } // /speciesEntryFrame
