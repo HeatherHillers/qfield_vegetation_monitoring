@@ -34,3 +34,4 @@ Each Demo* project in this repository is an increasingly complex version of the 
 3. A synchronisation is usually not sufficient to get plugin updates.  Completely restart qfield, delete your project and download it fresh to make sure you have your latest change.  Sometimes it will become necessary to completely delete your project from qfieldcloud in order to get an update through.
 4. Dont name properties layer, as this may clash with a qt reserved property name.
 5. The internal attribute index for a feature in qfield can be different than its attribute index in qgis, and it can change.  So you have to check the attribute index before you set a value.  Do not rely on hard coded attribute indexes.
+6. Always remember to close your feature iterators. Failure to do so will catastrophically crash QField after about the 4th execution.
