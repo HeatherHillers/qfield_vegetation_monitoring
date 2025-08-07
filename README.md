@@ -17,7 +17,7 @@ Each Demo* project in this repository is an increasingly complex version of the 
 
 5. demo5_species_entry:  This adds a nice species entry widget to each strata page, with autosave.  It's pretty neat, I think.  The component communication gets a bit complicated.
 
-6. demo6_mapclick: This plugin is neat but it is not connected to the map.  Clearly I would like to click on the map and open the plugin, ideally with the nearest plot already selected and loaded.  This is tricky, but I will try it.
+6. demo6_mapclick: This plugin adds the critical ability to click on the map and open the plugin with the nearest object's plot id selected in the search bar.  Custom Form, voila!
 
 ## Running the demonstration
 
