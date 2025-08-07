@@ -3,4 +3,5 @@ data
 .qfieldsync
 *shm
 *wal
-demo6_mapclick/
+.vscode
+.qmlls.ini
