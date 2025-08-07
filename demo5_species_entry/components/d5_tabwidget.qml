@@ -13,9 +13,9 @@ Rectangle {
     property string currentPlotId: ""
     property bool plotFound: false  // Initially false - header will be invisible until a plot is loaded
 
-    property var species_layer : get_layer_by_name("species")
-    property var species_menu_layer : get_layer_by_name("species_menu")
-    property var abundance_layer : get_layer_by_name("abundance_menu")
+    property var species_layer : qgisProject.mapLayersByName("species")[0]
+    property var species_menu_layer : qgisProject.mapLayersByName("species_menu")[0]
+    property var abundance_layer : qgisProject.mapLayersByName("abundance_menu")[0]
 
     // species menu entries: general
     ListModel {
@@ -420,17 +420,4 @@ Rectangle {
         }
     }
     
-    function get_layer_by_name(name){
-        // retrieve a QgsMapLayer from the project by its name
-        // qgisProject is the global variable that holds the current qfield project
-        var layers = ProjectUtils.mapLayers(qgisProject)
-        for (var layer_id in layers){
-            var l = layers[layer_id]
-            if (l.name == name){
-                return l
-            }
-        }
-        // qgisProject.mapLayersByName(name)
-        return null
-    }
 }

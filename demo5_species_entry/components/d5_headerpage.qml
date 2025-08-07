@@ -8,7 +8,7 @@ import Theme
 
 Page {
     id: headerPage
-    property var header_layer: get_layer_by_name("plot_header")
+    property var header_layer: qgisProject.mapLayersByName("plot_header")[0]
     // Explicit height for ScrollView detection
     implicitHeight: headerColumn.implicitHeight + 40  // Add padding
     
@@ -548,17 +548,5 @@ Page {
         // Could add error display UI here in the future
     }
 
-    function get_layer_by_name(name){
-        // retrieve a QgsMapLayer from the project by its name
-        // qgisProject is the global variable that holds the current qfield project
-        var layers = ProjectUtils.mapLayers(qgisProject)
-        for (var layer_id in layers){
-            var l = layers[layer_id]
-            if (l.name == name){
-                return l
-            }
-        }
-        // qgisProject.mapLayersByName(name)
-        return null
-    }
+
 }

@@ -108,21 +108,8 @@ Rectangle {
 
   Component.onCompleted: {
     // Initialize layer and populate model after component is fully loaded
-    plotsLayer = get_layer_by_name("plots")
+    plotsLayer = qgisProject.mapLayersByName("plots")[0]
     populatePlotModel()
-  }
-  function get_layer_by_name(name){
-    // retrieve a QgsMapLayer from the project by its name
-    // qgisProject is the global variable that holds the current qfield project
-    var layers = ProjectUtils.mapLayers(qgisProject)
-    for (var layer_id in layers){
-      var l = layers[layer_id]
-      if (l.name == name){
-        return l
-      }
-    }
-    // qgisProject.mapLayersByName(name)
-    return null
   }
 
   function populatePlotModel() {
