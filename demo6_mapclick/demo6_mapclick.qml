@@ -46,9 +46,9 @@ Item {
     pointHandler.registerHandler("demo6_mapclick", (point, type, interactionType) => {
       if (interactionType === "clicked") {
         // create a pair of point that'll represent a buffer area within which features are to be searched
-        let tl = mapCanvas.mapSettings.screenToCoordinate(Qt.point(point.x - 4, point.y - 4))
-        let br = mapCanvas.mapSettings.screenToCoordinate(Qt.point(point.x + 4, point.y + 4))
-        
+        let tl = mapCanvas.mapSettings.screenToCoordinate(Qt.point(point.x - 20, point.y - 20))
+        let br = mapCanvas.mapSettings.screenToCoordinate(Qt.point(point.x + 20, point.y + 20))
+
         let expression = "intersects(geom_from_wkt('POLYGON(("+tl.x+" "+tl.y+", "+br.x+" "+tl.y+", "+br.x+" "+br.y+", "+tl.x+" "+br.y+", "+tl.x+" "+tl.y+"))'), $geometry)"
         let it = LayerUtils.createFeatureIteratorFromExpression(qgisProject.mapLayersByName("plots")[0], expression)
         if (it.hasNext()) {
