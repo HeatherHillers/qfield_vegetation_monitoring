@@ -25,6 +25,9 @@ the d6_plugin_component passes the plotId to the setPlotId function of the searc
 the setPlotId function of d6_searchbar then calls selectByIdentifier, which searches through the plotInput comboBox for an index with a label matching the plotId.  It sets the selection by setting the currentIndex.  This then triggers the onCurrentIndexChanged slot of plotInput, triggering the appropriate loading of all the tab widgets.
 
 
+## What's wrong with this plugin
+
+In the desktop qfield on Ubuntu, when I open the plugin, the attribute drawer does not appear. On ios, however, both the plugin and the attribute form are appearing.  You can click on the plugin component and the attribute form will disappear, but it is not ideal.  I haven't figured out how to fix that yet.
 
 
 

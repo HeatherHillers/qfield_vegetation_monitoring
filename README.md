@@ -19,6 +19,11 @@ Each Demo* project in this repository is an increasingly complex version of the 
 
 6. demo6_mapclick: This plugin adds the critical ability to click on the map and open the plugin with the nearest object's plot id selected in the search bar.  Custom Form, voila!
 
+
+## What's wrong with demo6_mapclick
+
+In the desktop qfield on Ubuntu, when I open the plugin, the attribute drawer does not appear. On ios, however, both the plugin and the attribute form are appearing.  You can click on the plugin component and the attribute form will disappear, but it is not ideal.  I haven't figured out how to fix that yet.
+
 ## Running the demonstration
 
 1. clone the repository.
