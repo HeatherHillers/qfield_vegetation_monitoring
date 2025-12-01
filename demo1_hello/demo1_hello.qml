@@ -43,7 +43,6 @@ Item {
 
   // load the buttons
   Component.onCompleted: {
-    
     iface.addItemToPluginsToolbar(pluginButton)
   }
 
