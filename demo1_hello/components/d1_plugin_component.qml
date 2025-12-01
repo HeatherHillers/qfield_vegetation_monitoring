@@ -2,7 +2,7 @@
   /*
     This plugin component is just a rectangle.
     It's size is the full size of it's parent widget, which
-    is the pluginLoader in demo2_searchbar.
+    is the pluginLoader in demo1_hello.
     The Rectangle contains a Text Component with a title string.
     */
  
@@ -20,12 +20,10 @@ import "qrc:/qml" as QFieldItems
 Rectangle {
     id: pluginFrame
     anchors.fill: parent
-    property color background_color: "#ffecd1"
-    property color text_color: "#6baa75"
-    color: background_color
+    color: PluginTheme.vanilla
     Text {
-        text: "Vegetation Monitoring: Plugin Component"
-        color: pluginFrame.text_color
+        text: "Demo 1 Vegetation Monitoring: Plugin Component"
+        color: PluginTheme.green
         font.pixelSize: 20
         horizontalAlignment: Text.AlignHCenter             
         anchors.centerIn: parent
