@@ -30,6 +30,7 @@ Rectangle {
 
     ColumnLayout {
         anchors.centerIn: parent
+        // define width on the column layout to control child element widths
         width: parent.width * 0.8
         spacing: 20
         
@@ -68,7 +69,7 @@ Rectangle {
             Text {
                 id: messageBox
                 anchors.centerIn: parent
-                text: "Demo2 Search Bar"
+                text: "Demo 2 Search Bar"
                 color: PluginTheme.white
                 font.pixelSize: 16
             }

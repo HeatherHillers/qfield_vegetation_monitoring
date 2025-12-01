@@ -40,7 +40,7 @@ Rectangle {
   // style
   width: parent.width
   height: 100
-  color: "#6baa75"
+  color: PluginTheme.green
 
 
   RowLayout {
@@ -53,7 +53,7 @@ Rectangle {
       horizontalAlignment: Text.AlignHCenter
       verticalAlignment: Text.AlignBottom
       text: "Plot: "
-      color: "white"
+      color: PluginTheme.white
       font.pixelSize: 24
       font.bold: true
     }
