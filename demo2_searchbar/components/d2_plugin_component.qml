@@ -1,11 +1,11 @@
   
 /*
-  This plugin component is just a rectangle.
+  This plugin component contains a column layout holding a search bar and a Rectangle frame used to display messages.
   It's size is the full size of it's parent widget, which
-  is the map canvas.
-  The Rectangle contains a Text Component with a title string.
+  is the pluginLoader in demo2_searchbar.
   */
  
+ // Qt Alignment Properties are imported from QtQuick
 import QtQuick 
 import QtQuick.Controls 
 import QtQuick.Layouts  
@@ -19,21 +19,26 @@ import Theme
 import "qrc:/qml" as QFieldItems
 
 Rectangle {
+    // The pluginFrame defines a vanilla colored frame over which the 
+    // ColumnLayout will be centered.
+    // If the pluginFrame was transparent, we could eliminate it 
+    // and use the ColumnLayout as the root element.
+    // But then we would see the map canvas behind the plugin, and we want to block it out.
     id: pluginFrame
     anchors.fill: parent
-    property color background_color: "#ffecd1"
-    property color text_color: "#6baa75"
-    color: background_color
+    color: PluginTheme.vanilla
 
-    Column {
+    ColumnLayout {
         anchors.centerIn: parent
+        width: parent.width * 0.8
         spacing: 20
         
         // Search bar component loaded from searchbar.qml
         Loader {
             id: searchBarLoader
-            width: pluginFrame.width * 0.8
+            width: parent.width
             height: 100
+            Layout.alignment: Qt.AlignHCenter
             source: "d2_searchbar.qml"
 
             // Handle signals from the loaded searchbar component
@@ -53,16 +58,18 @@ Rectangle {
        
         // This Rectangle displays texts for this demo.  It is also a layout placeholder for the tab widget we will add later.
         Rectangle {
-            id: tabFrame
-            width: pluginFrame.width * 0.8
+            id: textFrame
+            width: parent.width
             height: 100
-            color: "#6baa75"
-            
+            color: PluginTheme.green
+            Layout.alignment: Qt.AlignHCenter
+
+    
             Text {
                 id: messageBox
                 anchors.centerIn: parent
                 text: "Demo2 Search Bar"
-                color: "white"
+                color: PluginTheme.white
                 font.pixelSize: 16
             }
         }

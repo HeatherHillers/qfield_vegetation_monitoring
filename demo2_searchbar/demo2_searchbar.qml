@@ -6,6 +6,7 @@ import QtCore
 
 import org.qfield  
 import org.qgis
+// This is QField's Theme module
 import Theme  
 
 import "qrc:/qml" as QFieldItems
