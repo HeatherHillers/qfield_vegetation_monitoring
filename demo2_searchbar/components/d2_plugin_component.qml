@@ -29,22 +29,6 @@ Rectangle {
         anchors.centerIn: parent
         spacing: 20
         
-        // Test simple Rectangle first, then search bar
-        Rectangle {
-            id: pluginTitleBox
-            width: pluginFrame.width * 0.8
-            height: 100
-            color: "#6baa75"
-            
-            Text {
-                id: pluginTitle
-                anchors.centerIn: parent
-                text: "Demo2 Search Bar"
-                color: "white"
-                font.pixelSize: 16
-            }
-        }
-        
         // Search bar component loaded from searchbar.qml
         Loader {
             id: searchBarLoader
@@ -56,15 +40,32 @@ Rectangle {
             onLoaded: {
                 if (item) {
                     item.plotNotFound.connect(function(plotId) {
-                        pluginTitle.text = "Plot not found: " + plotId
+                        messageBox.text = "Plot not found: " + plotId
                     })
                     item.plotLoaded.connect(function(plotId) {
-                        pluginTitle.text = "Plot loaded: " + plotId
+                        messageBox.text = "Plot loaded: " + plotId
                     })
                 }else{
                     iface.logMessage("No item - component not loaded")
                 }
             }
         }
-    }
+       
+        // This Rectangle displays texts for this demo.  It is also a layout placeholder for the tab widget we will add later.
+        Rectangle {
+            id: tabFrame
+            width: pluginFrame.width * 0.8
+            height: 100
+            color: "#6baa75"
+            
+            Text {
+                id: messageBox
+                anchors.centerIn: parent
+                text: "Demo2 Search Bar"
+                color: "white"
+                font.pixelSize: 16
+            }
+        }
+    } 
+
 }
