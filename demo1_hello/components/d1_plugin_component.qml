@@ -2,7 +2,7 @@
   /*
     This plugin component is just a rectangle.
     It's size is the full size of it's parent widget, which
-    is the map canvas.
+    is the pluginLoader in demo2_searchbar.
     The Rectangle contains a Text Component with a title string.
     */
  
