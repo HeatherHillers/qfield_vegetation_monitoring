@@ -9,12 +9,15 @@ import org.qgis
 import Theme  
 
 import "qrc:/qml" as QFieldItems
-/* This is the sidecar plugin for the bio_okomonitoring project.  
-   It depends on components in the directory ./components.
-   All components must be in the components directory to be recognised by QField.
-   (The directory does not need to be called components)
-   Installation:  Add the components directory as an attachment directory in your qfield project.
-   Put this file and the components directory in the same directory as your qfield project. And use the qfieldsync plugin to deliver it with your project updates.*/
+
+/* demo1_hello demonstrates the structure of a basic hello world QField project level plugin.  
+   It depends on qml files loaded from the directory ./components.
+   Installation:   
+   The components directory must be configured as an attachment directory in your qfield project.
+   Put this file and the components directory in the same directory as your qfield project. 
+   Use the qfieldsync plugin to synchronise the project.  
+   Your plugin updates will be delivered along with your project updates.*/
+
 Item {  
   id: plugin
   parent: iface.mapCanvas() 
@@ -36,7 +39,12 @@ Item {
     round: true
 
     onClicked: {
-      iface.logMessage("Loading demo1_hello/components/d1_plugin_compononent.qml")
+      if (pluginLoader.active){
+          iface.logMessage("Unloading d1_plugin_compononent.qml")
+      }
+      else {
+          iface.logMessage("Loading d1_plugin_component.qml")
+      }
       pluginLoader.active = !(pluginLoader.active)
     }
   }
