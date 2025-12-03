@@ -4,6 +4,7 @@
     It's size is the full size of it's parent widget, which
     is the pluginLoader in demo1_hello.
     The Rectangle contains a Text Component with a title string.
+    The Rectangle logs messages when it is created and destroyed.
     */
  
 import QtQuick 
@@ -22,14 +23,18 @@ Rectangle {
     anchors.fill: parent
     color: PluginTheme.vanilla
     Text {
-        text: "Demo 1 Vegetation Monitoring: Plugin Component"
+        text: "Vegetation Monitoring: Plugin Component"
         color: PluginTheme.green
         font.pixelSize: 20
         horizontalAlignment: Text.AlignHCenter             
         anchors.centerIn: parent
     }
     Component.onCompleted: {
-        //setup menu list models
-        iface.logMessage("d1_plugin_component.qml loaded")
+        // Construction
+        iface.logMessage("d1_plugin_component.qml is constructed")
+    }
+    Component.onDestruction: {
+        // Destruction
+        iface.logMessage("destructing d1_plugin_component.qml")
     }
 }
