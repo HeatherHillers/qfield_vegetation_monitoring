@@ -6,17 +6,12 @@ import QtCore
 
 import org.qfield  
 import org.qgis
-// This is QField's Theme module
 import Theme  
 
 import "qrc:/qml" as QFieldItems
-/* This is the sidecar plugin for the bio_okomonitoring project.  
-   It depends on components in the directory ./components.
-   All components must be in the components directory to be recognised by QField.
-   (The directory does not need to be called components)
-   Installation:  Add the components directory as an attachment directory in your qfield project.
-   Put this file and the components directory in the same directory as your qfield project. And use the qfieldsync plugin to deliver it with your project updates.*/
-Item {  
+/* demo2_searchbar demonstrates selection of features from a layer.  The user can select a plot
+   either by selecting it from a dropdown list, or by clicking on it in the map canvas.
+*/
   id: plugin
   parent: iface.mapCanvas() 
   anchors.fill: parent 
@@ -37,13 +32,13 @@ Item {
     round: true
 
     onClicked: {
+      // removed logging information from demo1_hello
       pluginLoader.active = !(pluginLoader.active)
     }
   }
 
   // load the buttons
   Component.onCompleted: {
-    
     iface.addItemToPluginsToolbar(pluginButton)
   }
 
