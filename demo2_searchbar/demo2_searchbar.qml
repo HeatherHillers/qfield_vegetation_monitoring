@@ -49,7 +49,12 @@ Item {
     // Map Selection: 3. register the point handler and define its callback
     pointHandler.registerHandler("demo2_searchbar", (point, type, interactionType) => {
       // do not use the clicked signal, as it will conflict with qfield's own map click handling
-      if (interactionType === "doubleClicked") {
+      // qfield.exe doesnt register doubleclicks or point and hold properly, but ios does.
+      // https://github.com/opengisch/QField/issues/6866
+      
+      var shouldHandle = (Qt.platform.os === "windows" && interactionType === "clicked") ||
+                         (Qt.platform.os !== "windows" && interactionType === "doubleClicked")
+      if (shouldHandle) {
         // create a pair of point that'll represent a buffer area within which features are to be searched. 
         let tl = mapCanvas.mapSettings.screenToCoordinate(Qt.point(point.x - 20, point.y - 20))
         let br = mapCanvas.mapSettings.screenToCoordinate(Qt.point(point.x + 20, point.y + 20))
