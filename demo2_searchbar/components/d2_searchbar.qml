@@ -36,7 +36,33 @@ Rectangle {
   signal plotNotFound(string plotId)
   signal plotLoaded(string plotId)
   signal layerLoadError(string message)
-  
+  function setPlotId(plotId) {
+    console.log("d2_searchbar: Setting plot ID in search bar:", plotId)
+    selectByIdentifier(plotId)
+    console.log("d2_searchbar:Plot ID set in search bar:", plotInput.currentText)
+
+  }
+   
+  function selectByIdentifier(targetId) {
+      // Loop through all items in the model
+      for (let i = 0; i < plot_model.count; i++) {
+          // Get the item at the current index and check its 'textId' property
+          if (plot_model.get(i).label === targetId) {
+              // If it matches, set the ComboBox's index and exit the function
+              console.log("d2_searchbar: Found '" + targetId + "' at index: " + i);
+              console.log("d2_searchbar: Setting plotInput.currentIndex to:", i);
+              
+              // Only change index if it's different to avoid unnecessary signals
+              if (plotInput.currentIndex !== i) {
+                  plotInput.currentIndex = i;
+              }
+              return;
+          }
+      }
+      // Optional: Handle cases where the ID is not found
+      console.log("d2_searchbar: Identifier '" + targetId + "' not found.");
+      plotInput.currentIndex = -1; // -1 deselects any item
+  }
   // style
   width: parent.width
   height: 100

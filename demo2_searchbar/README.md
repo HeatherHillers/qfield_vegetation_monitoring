@@ -1,6 +1,23 @@
 # demo2_searchbar
 
-This demo builds on demo1_hello.  It adds a menu that allows the user to select from all the objects in a project layer.  It then changes the title Text according to the selection.  You get a bit of interface, a bit of widgets, and a bit of signal handling.
+This demo builds on demo1_hello and demonstrates methods for feature selection.  
+
+The user can now open the plugin by clicking on a plot point.  The id of the selected plot will be automatically loaded in the plugin.
+
+The user can also manually open the plugin by clicking on the camera icon as before.
+
+The Hello World Title box is now replaced with a drop down menu and a smaller text box.
+
+The drop down menu is searchable and contains all plot ids.
+
+If the user opens the plugin by clicking on the map, the plot id will be preselected in the drop down, and its plot id will be displayed in the text box.
+
+If the user manually opened the plugin, or if the user wants to change the selection they can choose another plot from the drop down menu.  
+
+Changing the selection changes the plot id shown in the box.
+
+With this plugin in hand, you should be able to construct any kind of reporting plugin you would like to create.
+
 
 ## Features of the plugin
 
@@ -28,7 +45,36 @@ Remember to always close the feature iterator.  Failure to do so will hang QFiel
 
 Enjoy the interaction between Feature Selection and the pluginTitle.  
 
+### Using the QField MapCanvasPointHandler pointHandler Object
+
+The clicking on the map part of the plugin is way in the front in demo2_mapclick.qml.  Here we use nirvn's example to register a pointHandler.  The function registered reacts to a click on the map by activating (opening) the pluginLoader and calling the setPlotId function on it's item (the d2_plugin_component).
+
+### Passing the properties
+
+the d2_plugin_component passes the plotId to the setPlotId function of the searchBarComponent, where it is needed.
+
+### Setting the selection of a combobox by text
+
+the setPlotId function of d2_searchbar then calls selectByIdentifier, which searches through the plotInput comboBox for an index with a label matching the plotId.  It sets the selection by setting the currentIndex.  This then triggers the onCurrentIndexChanged slot of plotInput, triggering the appropriate loading of all the tab widgets.
+
+
 ## Running the demonstration
 
 See the instructions in qfield_vegetation_monitoring/README.md
+
+## What's wrong with this plugin
+
+In the desktop qfield on Ubuntu or windows, when I open the plugin, the attribute drawer does not appear. On ios, however, both the plugin and the attribute form are appearing.  You can click on the plugin component and the attribute form will disappear, but it is not ideal.  I haven't figured out how to fix that yet.
+
+
+## Important notes for developers
+It is worth pinning here the pull request from Mathieu_Pellerin (nirvn) in case it may help you with the key code for clicking and getting a feature.  Note: The example code here forgot to close the iterator.  Remember to add a it.close() after you get your feature or you will catastrophically crash QField after about the 4th time you click!
+
+https://github.com/opengisch/QField/pull/6516
+
+
+
+
+
+
 

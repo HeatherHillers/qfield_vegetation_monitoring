@@ -28,6 +28,18 @@ Rectangle {
     anchors.fill: parent
     color: PluginTheme.vanilla
 
+    function setPlotId(plotId) {
+        if (searchBarComponent) {
+            searchBarComponent.setPlotId(plotId)
+            messageBox.text = "Plot loaded: " + plotId
+            console.log("SearchBar component loaded with plot ID:", plotId)
+        } else {
+            console.error("SearchBar component not loaded yet")
+        }
+    }
+    // Properties to store references to loaded components
+    property var searchBarComponent: null
+
     ColumnLayout {
         anchors.centerIn: parent
         // define width on the column layout to control child element widths
@@ -45,6 +57,7 @@ Rectangle {
             // Handle signals from the loaded searchbar component
             onLoaded: {
                 if (item) {
+                    searchBarComponent = item
                     item.plotNotFound.connect(function(plotId) {
                         messageBox.text = "Plot not found: " + plotId
                     })
@@ -69,7 +82,7 @@ Rectangle {
             Text {
                 id: messageBox
                 anchors.centerIn: parent
-                text: "Demo 2 Search Bar"
+                text: "Demo 2 Search Bar and Feature Selection"
                 color: PluginTheme.white
                 font.pixelSize: 16
             }
