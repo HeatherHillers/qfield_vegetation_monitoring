@@ -48,8 +48,9 @@ Item {
  
     // Map Selection: 3. register the point handler and define its callback
     pointHandler.registerHandler("demo2_searchbar", (point, type, interactionType) => {
-      if (interactionType === "clicked") {
-        // create a pair of point that'll represent a buffer area within which features are to be searched. The required tolerance is different for iphone, ipad, or desktop because of the different screen resolutions.
+      // do not use the clicked signal, as it will conflict with qfield's own map click handling
+      if (interactionType === "doubleClicked") {
+        // create a pair of point that'll represent a buffer area within which features are to be searched. 
         let tl = mapCanvas.mapSettings.screenToCoordinate(Qt.point(point.x - 20, point.y - 20))
         let br = mapCanvas.mapSettings.screenToCoordinate(Qt.point(point.x + 20, point.y + 20))
 

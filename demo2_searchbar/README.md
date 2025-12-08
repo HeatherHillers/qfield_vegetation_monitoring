@@ -62,17 +62,14 @@ the setPlotId function of d2_searchbar then calls selectByIdentifier, which sear
 
 See the instructions in qfield_vegetation_monitoring/README.md
 
-## What's wrong with this plugin
-
-In the desktop qfield on Ubuntu or windows, when I open the plugin, the attribute drawer does not appear. On ios, however, both the plugin and the attribute form are appearing.  You can click on the plugin component and the attribute form will disappear, but it is not ideal.  I haven't figured out how to fix that yet.
-
 
 ## Important notes for developers
-It is worth pinning here the pull request from Mathieu_Pellerin (nirvn) in case it may help you with the key code for clicking and getting a feature.  Note: The example code here forgot to close the iterator.  Remember to add a it.close() after you get your feature or you will catastrophically crash QField after about the 4th time you click!
+- It is worth pinning here the pull request from Mathieu_Pellerin (nirvn) in case it may help you with the key code for clicking and getting a feature.  Note: The example code here forgot to close the iterator.  
 
 https://github.com/opengisch/QField/pull/6516
 
-
+- Remember to add a it.close() after you get your feature from any feature iterator or you will catastrophically crash QField after about the 4th time you click!
+- You have to set the tolerance on your point handler sufficiently high that it works not only on the desktop qfield with your mouse but also on your mobile device with your fat clumsy fingers.  Try for 20. 
 
 
 
