@@ -1,8 +1,6 @@
   
 /*
-  This plugin component is a rectangle containing a search bar and a tab widget.
-  It is designed to be the full size of its parent widget, which is the map canvas
-  The Search Bar selection will modify the title in the "Header" tab of the TabWidget.
+  This plugin component loads a title bar and a tab widget to display information about a selected plot.
   */
  
 import QtQuick 
@@ -18,87 +16,44 @@ import Theme
 import "qrc:/qml" as QFieldItems
 
 Rectangle {
+    id: pluginFrame
     anchors.fill: parent
+    color: PluginTheme.vanilla
     
-    // Import centralized style
-    Loader {
-        id: styleLoader
-        source: "d4_plugin_style.qml"
+    // Signal to the parent component to deactivate the plugin
+    signal closed()
+    
+    function setPlotId(plotId) {
+        titleBarLoader.item.setPlotId(plotId)
+        tabWidgetLoader.item.setPlotId(plotId)
     }
-    
-    // Use centralized style instead of hardcoded values
-    property var style: styleLoader.item
-    // Computed style properties with fallbacks (cleaner than inline fallbacks)
-    color: style ? style.primaryBackground: "#ffecd1"  
-    readonly property int searchBarHeight: style ? style.searchBar.height : 40
-    
 
-    // Properties to store references to loaded components
-    property var searchBarComponent: null
-    property var tabWidgetComponent: null
-
-    Column {
+    ColumnLayout {
         anchors.centerIn: parent
-        width: parent.width * 0.8   // Shared width for all child components
-        height: parent.height * 0.8 // Shared height constraint for all child components
+        width: parent.width
+        spacing: 20
 
-
-        // Search bar component loaded from searchbar.qml
+        // Title bar component loaded from d3_titlebar.qml
         Loader {
-            id: searchBarLoader
-            width: parent.width 
-            height: searchBarHeight
-            source: "d4_searchbar.qml"
-
-            // Handle signals from the loaded searchbar component
-            onLoaded: {
-                if (item) {
-                    searchBarComponent = item
-                    // Connect signals if tabwidget is ready
-                    if (tabWidgetComponent) {
-                        connectSearchbarSignals()
-                    }
-                } else {
-                    console.error("SearchBar failed to load")
-                }
-            }
+            id: titleBarLoader
+            width: pluginFrame.width 
+            height: 100  // Fixed height for title bar
+            source: "d4_titlebar.qml"
         }
-        
+        // Close button is inside the title bar.  Pass along its closed signal to the plugin.
+        Connections {
+            target: titleBarLoader.item
+            function onClosed() {
+                closed()
+            }
+        }        
         // TabWidget to display search results
         Loader {
             id: tabWidgetLoader
             width: parent.width  // Use parent (Column) width
-            height: parent.height - searchBarLoader.height // Fill remaining Column space
+            height: parent.height - titleBarLoader.height // Fill remaining Column space
             source: "d4_tabwidget.qml"
-
-            onLoaded: {
-                if (item) {
-                    tabWidgetComponent = item
-                    // Now that tabwidget is loaded, connect searchbar signals if searchbar is ready
-                    if (searchBarComponent) {
-                        connectSearchbarSignals()
-                    }
-                } else {
-                    console.log("TabWidget failed to load")
-                }
-            }
         }
     }
     
-    // Helper function to connect signals - called when both components are loaded
-    function connectSearchbarSignals() {
-        if (searchBarComponent && tabWidgetComponent) {
-
-            searchBarComponent.plotNotFound.connect(function(plotId) {
-                tabWidgetComponent.handlePlotNotFound(plotId)
-            })
-            
-            searchBarComponent.plotLoaded.connect(function(plotId) {
-                tabWidgetComponent.handlePlotLoaded(plotId)
-            })
-            searchBarComponent.layerLoadError.connect(function(message) {
-                console.error("Layer load error:", message)
-            })
-        }
-    }
 }
