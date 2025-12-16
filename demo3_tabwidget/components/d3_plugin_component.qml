@@ -28,6 +28,7 @@ Rectangle {
     
     function setPlotId(plotId) {
         titleBarLoader.item.setPlotId(plotId)
+        tabWidgetLoader.item.setPlotId(plotId)
     }
 
     ColumnLayout {

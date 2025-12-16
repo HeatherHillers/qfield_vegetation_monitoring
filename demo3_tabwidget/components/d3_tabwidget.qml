@@ -4,11 +4,9 @@ import QtQuick.Layouts
 
 Rectangle {
     id: tabWidget
-    
+    color: PluginTheme.white
     // Properties
     property string currentPlotId: ""
-    property bool plotFound: false
-    property color search_bar_main_color: "#6baa75"
 
     // UI Constants
     readonly property int tabHeight: 40
@@ -26,8 +24,6 @@ Rectangle {
         ListElement { name: "Herb";}
         ListElement { name: "Moss";}
     }    
-
-    color: "#f0f0f0"
     
     TabBar {
         id: tabBar
@@ -42,7 +38,7 @@ Rectangle {
                 background: Rectangle { color: "black"}
                 contentItem: Text {
                     text: model.name // Set text of tab from the tabModel property
-                    color: tabButton.checked ? search_bar_main_color : "white"
+                    color: tabButton.checked ? PluginTheme.green : PluginTheme.white
                     font.pixelSize: tabWidget.fontSize_tabs
                     horizontalAlignment: Text.AlignHCenter
                 }
@@ -75,32 +71,25 @@ Rectangle {
         // Header Tab Content (first item)
         ScrollView {
             id: headerPage
-            
             Rectangle {
-                color: "white"
-                border.color: "#ccc"
+                id: headerFrame
+                color: PluginTheme.white
+                border.color: PluginTheme.white
                 border.width: 1
                 width: headerPage.width
-                height: headerColumn.height + 20
                 
                 Column {
                     id: headerColumn
-                    anchors.centerIn: parent
-                    spacing: tabWidget.defaultSpacing
+                    anchors.fill: parent
+                    anchors.margins: tabWidget.defaultSpacing
+                    spacing: tabWidget.defaultSpacing   
                     
                     Text {
                         id: headerTitle
-                        text: currentPlotId ? "Plot: " + currentPlotId : "No plot selected"
-                        font.pixelSize: tabWidget.fontSize_title
+
+                        text: "Plot: " + currentPlotId 
+                        font.pixelSize: 24
                         font.bold: true
-                        horizontalAlignment: Text.AlignHCenter
-                    }
-                    
-                    Text {
-                        id: headerStatus
-                        text: plotFound ? "Plot found and loaded" : "Plot not found"
-                        font.pixelSize: tabWidget.fontSize_normal
-                        color: plotFound ? "green" : "red"
                         horizontalAlignment: Text.AlignHCenter
                     }
                 }
@@ -116,11 +105,11 @@ Rectangle {
                 id: strataPage
                 
                 Rectangle {
-                    color: "white" 
-                    border.color: "#ccc"
+                    color: PluginTheme.white
+                    border.color: "black"
                     border.width: 1
                     width: strataPage.width
-                    height: strataColumn.height + 20
+
                     
                     Column {
                         id: strataColumn
@@ -137,7 +126,7 @@ Rectangle {
                         Text {
                             id: strataDetailsText
                             // Simple reactive text that updates when currentPlotId changes
-                            text: "Tab content - Plot: " + (tabWidget.currentPlotId || "None selected")
+                            text: "Tab content - Plot: " + tabWidget.currentPlotId
                         }
                     }
                 }
@@ -146,45 +135,9 @@ Rectangle {
     }
     
     // Handler methods to be called from parent component
-    function handlePlotLoaded(plotId) {
+    function setPlotId(plotId) {
         console.log("TabWidget: Plot loaded -", plotId)
         currentPlotId = plotId
-        plotFound = true
-        
-        // Update content based on the loaded plot
-        updateContentForPlot(plotId)
     }
     
-    function handlePlotNotFound(plotId) {
-        console.log("TabWidget: Plot not found -", plotId)
-        currentPlotId = plotId
-        plotFound = false
-        
-        // Clear or show error content
-        clearContent()
-    }
-    
-    function updateContentForPlot(plotId) {
-        console.log("Updating content for plot:", plotId)
-        
-        // Header updates automatically through property bindings (currentPlotId and plotFound)
-        // The headerTitle and headerStatus Text elements are bound to these properties
-        
-        // For now, we'll just log that the content should be updated
-        // In a real implementation, you would:
-        // 1. Query the database/layer for plot-specific data
-        // 2. Update each strata tab with relevant data
-        
-        console.log("Content updated for all tabs with plot:", plotId)
-    }
-    
-    function clearContent() {
-        console.log("Clearing content for:", currentPlotId)
-        
-        // Header clears automatically through property bindings
-        // When plotFound becomes false, headerStatus shows "Plot not found"
-        // When currentPlotId changes, headerTitle updates accordingly
-        
-        console.log("Content cleared for plot:", currentPlotId)
-    }
 }
