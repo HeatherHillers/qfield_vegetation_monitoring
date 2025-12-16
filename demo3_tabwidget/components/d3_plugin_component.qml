@@ -1,8 +1,6 @@
   
 /*
-  This plugin component is a rectangle containing a header rectangle and a tab widget.
-  It is designed to be the full size of its parent widget, which is the map canvas
-  The header rectangle will contain a title message with the plot id and a close button.
+  This plugin component loads a title bar and a tab widget to display information about a selected plot.
   */
  
 
@@ -23,7 +21,7 @@ Rectangle {
     anchors.fill: parent
     color: PluginTheme.vanilla
 
-     // Signal to the parent component to deactivate the plugin
+    // Signal to the parent component to deactivate the plugin
     signal closed()
     
     function setPlotId(plotId) {
