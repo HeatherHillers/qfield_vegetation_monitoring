@@ -81,7 +81,7 @@ Rectangle {
                 border.color: "#ccc"
                 border.width: 1
                 width: headerPage.width
-                height: Math.max(headerPage.height, headerColumn.height + 20)
+                height: headerColumn.height + 20
                 
                 Column {
                     id: headerColumn
@@ -120,7 +120,7 @@ Rectangle {
                     border.color: "#ccc"
                     border.width: 1
                     width: strataPage.width
-                    height: Math.max(strataPage.height, strataColumn.height + 20)
+                    height: strataColumn.height + 20
                     
                     Column {
                         id: strataColumn
