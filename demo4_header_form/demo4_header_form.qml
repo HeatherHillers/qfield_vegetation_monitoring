@@ -9,7 +9,14 @@ import org.qgis
 import Theme  
 
 import "qrc:/qml" as QFieldItems
-/* This is the sidecar plugin for the demo4_feature_form project.  */
+/*  demo4_header_form demonstrates feature insert and update.
+    A hidden layer plot_header has been added to the project.
+    When the plugin is activated and the tab widget is opened with its plot_id,
+    if a row does not exist in plot_header for that plot_id, an empty row will be created. 
+    When the user edits a header element in the header tab form, an update occurs automatically on the row.
+    There is no save button necessary.  Eliminating the save button prevents the user from losing changes 
+    if they forget to save before closing the form.
+    */
 
 Item {  
   id: plugin
