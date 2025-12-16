@@ -23,6 +23,9 @@ Item {
   parent: iface.mapCanvas() 
   anchors.fill: parent 
 
+  property var mapCanvas: iface.mapCanvas() 
+  property var pointHandler: iface.findItemByObjectName("pointHandler")
+
   Loader {
     id: pluginLoader
     active: false
@@ -30,22 +33,46 @@ Item {
     source: Qt.resolvedUrl('./components/d4_plugin_component.qml')
   }  
 
-  // open and close the Plugin
-  QfToolButton {
-    id: pluginButton
-    bgcolor: Theme.darkGray
-    iconSource: Theme.getThemeVectorIcon('ic_camera_photo_black_24dp')
-    iconColor: Theme.mainColor
-    round: true
-
-    onClicked: {
-      pluginLoader.active = !(pluginLoader.active)
+  Connections {
+    target: pluginLoader.item
+    function onClosed() {
+      pluginLoader.active = false
     }
+  }  
+
+
+  Component.onCompleted: {
+ 
+    // Map Selection: 3. register the point handler and define its callback
+    pointHandler.registerHandler("demo4_header_form", (point, type, interactionType) => {
+      // do not use the clicked signal, as it will conflict with qfield's own map click handling
+      // qfield.exe doesnt register doubleclicks or point and hold properly, but ios does.
+      // https://github.com/opengisch/QField/issues/6866
+      
+      var shouldHandle = (Qt.platform.os === "windows" && interactionType === "clicked") ||
+                         (Qt.platform.os !== "windows" && interactionType === "doubleClicked")
+      if (shouldHandle) {
+        // create a pair of point that'll represent a buffer area within which features are to be searched. 
+        let tl = mapCanvas.mapSettings.screenToCoordinate(Qt.point(point.x - 20, point.y - 20))
+        let br = mapCanvas.mapSettings.screenToCoordinate(Qt.point(point.x + 20, point.y + 20))
+
+        let expression = "intersects(geom_from_wkt('POLYGON(("+tl.x+" "+tl.y+", "+br.x+" "+tl.y+", "+br.x+" "+br.y+", "+tl.x+" "+br.y+", "+tl.x+" "+tl.y+"))'), $geometry)"
+        let it = LayerUtils.createFeatureIteratorFromExpression(qgisProject.mapLayersByName("plots")[0], expression)
+        if (it.hasNext()) {
+          const feature = it.next()
+          it.close()
+          pluginLoader.active = true
+          pluginLoader.item.setPlotId(feature.attribute("plot_id"))
+          return true
+        }
+        it.close();
+      }
+      return false
+    });
   }
 
-  // load the buttons
-  Component.onCompleted: {
-    iface.addItemToPluginsToolbar(pluginButton)
+  Component.onDestruction: {
+    pointHandler.deregisterHandler("demo4_header_form");
   }
 
 } 
