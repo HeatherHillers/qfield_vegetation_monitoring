@@ -29,6 +29,7 @@ Rectangle {
     }
 
     ColumnLayout {
+        // Anchor to top instead
         anchors.centerIn: parent
         width: parent.width
         spacing: 20
@@ -50,8 +51,8 @@ Rectangle {
         // TabWidget to display search results
         Loader {
             id: tabWidgetLoader
-            width: parent.width  // Use parent (Column) width
-            height: parent.height - titleBarLoader.height // Fill remaining Column space
+            width: pluginFrame.width  // Use parent (Column) width
+            height: pluginFrame.height - titleBarLoader.height - 20 // Fill remaining Column space
             source: "d4_tabwidget.qml"
         }
     }

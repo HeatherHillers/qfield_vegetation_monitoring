@@ -9,7 +9,6 @@ QtObject {
         { id: "comment", label: "Comments (max 255 characters)", attributeIndex: 4, fieldType: "text", maxLength: 255 }
     ]
     
-    // Field configuration structure
     readonly property var deckungFields: [
         { id: "t1_cover", label: "1. Canopy", attributeIndex: 5, stepSize: 5 },
         { id: "t2_cover", label: "2. Canopy", attributeIndex: 6, stepSize: 5 },
