@@ -9,7 +9,7 @@ import Theme
 import "qrc:/qml" as QFieldItems
 
 /**
- * Demo4: Feature Insert and Update 
+ * Demo4: Header Form Feature Insert and Update 
  * 
  * Demonstrates:
  * - Automatic feature creation when opening a new plot
