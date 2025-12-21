@@ -9,28 +9,26 @@ import "qrc:/qml" as QFieldItems
 
 Rectangle {
     id: speciesEntryFrame
-    Layout.fillWidth: true    // Makes the Rectangle use the width allocated by ColumnLayout
+    Layout.fillWidth: true   // Makes the Rectangle use the width allocated by ColumnLayout
     Layout.preferredHeight: 60 // Set a specific preferred height for each entry
                                 // Or, base it on content: e.g., speciesEntryTitle.implicitHeight + 20
-    Loader {
-        id: styleLoader
-        source: "d5_plugin_style.qml"
-    }
-    property var style: styleLoader.item
-    color: style ? style.secondaryBackground : "#6baa75" // Default color if style is not loaded
-    property int spacing: (style && style.layout) ? style.layout.defaultSpacing : 10 // Default spacing if style is not loaded
-    property color buttonColor: style ? style.tertiaryBackground : "#333333" // Default button color if style is not loaded
-    property int fontSize: style ? style.fontSizeNormal : 16 // Default font size if style is not loaded
+
+    color: PluginTheme.green 
+    property int spacing: 10 
+    property color buttonColor: Theme.darkGray
+    property int fontSize: 16 
     // passed props
     property var plotId: null
     property var feature: null // Reference to the feature object
-    property var species_layer: null // Reference to the species layer 
+    property var species_layer: qgisProject.mapLayersByName("species")[0]  
     property var stratum: null // Stratum type (e.g., 'KS', 'MS')
-    property var abundance_menu_model: null
-    property var species_menu_model: null
     
     // Callback function for deletion - to be set by parent
     property var onDeleteRequested: null
+    
+    // Callback function for saving field values - to be set by parent
+    // Should have signature: function(fieldName, value)
+    property var onSaveField: null
     
     Component.onCompleted: {
         // Initialization will be handled by property watchers
@@ -73,6 +71,7 @@ Rectangle {
             return
         }
         
+        console.log("d5_species: Initializing component for feature ID:", feature.id)
         
         // Load feature data if available
         load_feature_data(feature)
@@ -84,55 +83,73 @@ Rectangle {
         ComboBox {
             id: species_combo
             font.pixelSize: speciesEntryFrame.fontSize
-            model: species_menu_model
+            model: MenuProvider.species_menu_model
             textRole: "label"
             valueRole: "value"
             Layout.preferredWidth: 300
             Layout.alignment: Qt.AlignVCenter // Vertically center the ComboBox
 
             editable: true
-            property var field_name: fieldNames.species 
-            onAccepted: {
-                save_feature(field_name, currentText);
+            property var field_name: fieldNames.species
+        }
+        Connections {
+            id: speciesConnections
+            target: species_combo
+            enabled: false  // Start disabled during initialization
+            function onAccepted() {
+                console.log("d5_species: species onAccepted fired, onSaveField:", !!onSaveField)
+                if (onSaveField) {
+                    onSaveField(species_combo.field_name, species_combo.currentText)
+                }
             }
-            onActivated: {
-                save_feature(field_name, currentText);
+            function onActivated() {
+                console.log("d5_species: species onActivated fired, onSaveField:", !!onSaveField)
+                if (onSaveField) {
+                    onSaveField(species_combo.field_name, species_combo.currentText)
+                }
             }
-        } 
+        }
         ComboBox {
             id: abundance_combo
             font.pixelSize: speciesEntryFrame.fontSize
             Layout.preferredWidth: 350
-            model: abundance_menu_model
+            model: MenuProvider.abundance_menu_model
             textRole: "label"
             valueRole: "value"
             property var field_name: fieldNames.abundance // attribute name for abundance
             Layout.alignment: Qt.AlignVCenter // Vertically center the ComboBox
-            onAccepted: { // This signal is usually for when the user confirms an entry, e.g., by pressing Enter in an editable ComboBox
-            // Or when a selection is made and the popup closes.
-            // abundance_combo.currentValue refers to the 'value' property of the selected item from the model.
-            if (abundance_combo.currentIndex !== -1) { // Check if an item is actually selected
-                save_feature(field_name, abundance_combo.currentValue);
-            }
-            }
-            onActivated: function(index) { // This signal is emitted when an item is selected from the popup.
-            if (index >= 0 && abundance_combo.model && index < abundance_combo.model.count) {
-                var selectedItemValue = abundance_combo.model.get(index).value;
-                save_feature(field_name, selectedItemValue);
-            }
-            }
-
         }
-        TextField {
+        Connections {
+            id: abundanceConnections
+            target: abundance_combo
+            enabled: false  // Start disabled during initialization
+            function onAccepted() {
+                if (abundance_combo.currentIndex !== -1 && onSaveField) {
+                    onSaveField(abundance_combo.field_name, abundance_combo.currentValue)
+                }
+            }
+            function onActivated(index) {
+                if (index >= 0 && abundance_combo.model && index < abundance_combo.model.count && onSaveField) {
+                    var selectedItemValue = abundance_combo.model.get(index).value
+                    onSaveField(abundance_combo.field_name, selectedItemValue)
+                }
+            }
+        }
+        TextField {            
             id: comment_Input
             font.pixelSize: speciesEntryFrame.fontSize
             property var field_name: fieldNames.comment // Name for the comment attribute
             Layout.alignment: Qt.AlignVCenter // Vertically center the ComboBox
-            onEditingFinished: {
-                save_feature(field_name, comment_Input.text);
+        }
+        Connections {
+            id: commentConnections
+            target: comment_Input
+            enabled: false  // Start disabled during initialization
+            function onEditingFinished() {
+                if (onSaveField) {
+                    onSaveField(comment_Input.field_name, comment_Input.text)
+                }
             }
-
-
         }
         Button {
             id: deleteButton
@@ -207,6 +224,11 @@ Rectangle {
     } // /RowLayout
 
     function load_feature_data(feature){
+        // Disable signal handlers during data loading
+        speciesConnections.enabled = false
+        abundanceConnections.enabled = false
+        commentConnections.enabled = false
+        
         var speciesValue = feature.attribute("species") || "";
         species_combo.currentIndex = -1; // Reset/default to no selection
 
@@ -239,33 +261,12 @@ Rectangle {
                 }
             }
         }
-    }
-    function save_feature(field_name, value){
-        // never trust a field index.
-        var field_index = feature.fields.indexOf(field_name);
-        if (!species_layer || !feature) {
-            console.error("Cannot save: missing species_layer or feature")
-            return
-        }
         
-        try {
-            species_layer.startEditing()
-            species_layer.changeAttributeValue(feature.id, field_index, value)
-            species_layer.commitChanges()
-            feature = species_layer.getFeature(feature.id)
-            console.log("Saved field", field_index, "with value:", value)
-            console.log("Saved feature:", feature.id, "Field index:", field_index, "Value:", value)
-            console.log("Feature f_uid:", feature.attribute("f_uid"))
-            console.log("Feature plot_id:", feature.attribute("plot_id"))
-            console.log("Feature year:", feature.attribute("year"))
-            console.log("Feature stratum:", feature.attribute("stratum"))
-            console.log("Feature species:", feature.attribute("species"))
-            console.log("Feature comment:", feature.attribute("comment"))
-            console.log("Feature abundance:", feature.attribute("abundance"))
-        } catch (error) {
-            console.error("Error saving feature:", error)
-            species_layer.rollBack() // Rollback changes on error
-        }
+        // Re-enable signal handlers after data is loaded
+        console.log("d5_species: Enabling Connections, onSaveField exists:", !!onSaveField)
+        speciesConnections.enabled = true
+        abundanceConnections.enabled = true
+        commentConnections.enabled = true
     }
     
     // RECOMMENDATION: Define field name constants

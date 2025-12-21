@@ -10,7 +10,7 @@ import QtQuick.Layouts
  * 
  * Usage examples:
  *   // For integers
- *   D4_Range {
+ *   D5_Range {
  *       style: pluginStyle  // Pass the centralized style object
  *       decimals: 0         // Integer mode
  *       realFrom: 0         // Minimum value
@@ -20,7 +20,7 @@ import QtQuick.Layouts
  *   }
  * 
  *   // For decimals
- *   D4_Range {
+ *   D5_Range {
  *       style: pluginStyle  // Pass the centralized style object
  *       decimals: 2         // Number of decimal places
  *       realFrom: 0.0       // Minimum real value

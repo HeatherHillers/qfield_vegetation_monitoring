@@ -1,0 +1,5 @@
+singleton PluginTheme 1.0 d5_plugin_theme.qml
+singleton MenuProvider 1.0 d5_menu_provider.qml
+# Refactored components for cleaner separation
+FormSection 1.0 d5_form_section.qml
+FormField 1.0 d5_form_field.qml

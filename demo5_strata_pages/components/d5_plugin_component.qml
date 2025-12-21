@@ -1,0 +1,69 @@
+  
+/*
+  This plugin component loads a title bar and a tab widget to display information about a selected plot.
+  */
+ 
+import QtQuick 
+import QtQuick.Controls 
+import QtQuick.Layouts  
+
+import QtCore
+
+import org.qfield  
+import org.qgis
+import Theme  
+
+import "qrc:/qml" as QFieldItems
+
+Rectangle {
+    id: pluginFrame
+    anchors.fill: parent
+    color: PluginTheme.vanilla
+    
+    // Signal to the parent component to deactivate the plugin
+    signal closed()
+    
+    // Plot ID property - set from parent, propagates via bindings
+    property string plotId: ""
+
+    ColumnLayout {
+        // Anchor to top instead
+        anchors.centerIn: parent
+        width: parent.width
+        spacing: 20
+
+        Loader {
+            id: titleBarLoader
+            width: pluginFrame.width 
+            height: 100  // Fixed height for title bar
+            source: "d5_titlebar.qml"
+            
+            onLoaded: {
+                if (item) {
+                    item.plotId = Qt.binding(function() { return pluginFrame.plotId })
+                }
+            }
+        }
+        // Close button is inside the title bar.  Pass along its closed signal to the plugin.
+        Connections {
+            target: titleBarLoader.item
+            function onClosed() {
+                closed()
+            }
+        }        
+        // TabWidget to display search results
+        Loader {
+            id: tabWidgetLoader
+            width: pluginFrame.width  // Use parent (Column) width
+            height: pluginFrame.height - titleBarLoader.height - 20 // Fill remaining Column space
+            source: "d5_tabwidget.qml"
+            
+            onLoaded: {
+                if (item) {
+                    item.plotId = Qt.binding(function() { return pluginFrame.plotId })
+                }
+            }
+        }
+    }
+    
+}
