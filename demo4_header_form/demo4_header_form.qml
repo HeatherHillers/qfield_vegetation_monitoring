@@ -74,7 +74,7 @@ Item {
           
           // Open plugin with selected plot
           pluginLoader.active = true
-          pluginLoader.item.setPlotId(feature.attribute("plot_id"))
+          pluginLoader.item.plotId = feature.attribute("plot_id")
           return true  // Signal that click was handled
         }
         it.close()  // CRITICAL: Close even when no features found

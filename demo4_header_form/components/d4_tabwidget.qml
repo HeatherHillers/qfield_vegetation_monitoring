@@ -6,7 +6,7 @@ Rectangle {
     id: tabWidget
     color: PluginTheme.vanilla
     // Properties
-    property string currentPlotId: ""
+    property string plotId: ""
     property var strataPages: []  // Array to store references to loaded strata pages
     
     // UI Constants
@@ -77,6 +77,10 @@ Rectangle {
                 id: headerPageLoader
                 source: "d4_headerpage.qml"
                 width: headerScrollView.availableWidth
+
+                onLoaded: {
+                    item.plotId = Qt.binding(function() { return tabWidget.plotId })
+                }
             }
         }
 
@@ -99,10 +103,12 @@ Rectangle {
                     width: strataScrollView.availableWidth
                     
                     onLoaded: {
+                        item.strataName = tabModel.get(index + 1).name  // +1 to skip header
+                        
                         // Store reference to the loaded item
-                        if (item) {
-                            tabWidget.strataPages.push(item)
-                        }
+                        item.plotId = Qt.binding(function() { return tabWidget.plotId })
+                        tabWidget.strataPages.push(item)
+
                     }
                 }
             }

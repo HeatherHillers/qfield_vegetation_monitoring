@@ -15,7 +15,7 @@ Rectangle {
     
     // Properties to be set by parent
     property string strataName: "Strata"
-    property string currentPlotId: ""
+    property string plotId: ""
     
     
     // Computed style properties with fallbacks

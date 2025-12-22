@@ -23,10 +23,8 @@ Rectangle {
     // Signal to the parent component to deactivate the plugin
     signal closed()
     
-    function setPlotId(plotId) {
-        titleBarLoader.item.setPlotId(plotId)
-        tabWidgetLoader.item.setPlotId(plotId)
-    }
+    // Plot ID property - set from parent, propagates via bindings
+    property string plotId: ""
 
     ColumnLayout {
         // Anchor to top instead
@@ -40,6 +38,12 @@ Rectangle {
             width: pluginFrame.width 
             height: 100  // Fixed height for title bar
             source: "d4_titlebar.qml"
+            
+            onLoaded: {
+                if (item) {
+                    item.plotId = Qt.binding(function() { return pluginFrame.plotId })
+                }
+            }
         }
         // Close button is inside the title bar.  Pass along its closed signal to the plugin.
         Connections {
@@ -54,6 +58,12 @@ Rectangle {
             width: pluginFrame.width  // Use parent (Column) width
             height: pluginFrame.height - titleBarLoader.height - 20 // Fill remaining Column space
             source: "d4_tabwidget.qml"
+
+            onLoaded: {
+                if (item) {
+                    item.plotId = Qt.binding(function() { return pluginFrame.plotId })
+                }
+            }
         }
     }
     

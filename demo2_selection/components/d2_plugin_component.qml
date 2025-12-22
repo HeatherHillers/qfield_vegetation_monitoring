@@ -28,10 +28,8 @@ Rectangle {
     // Signal to the parent component to deactivate the plugin
     signal closed()
 
-    function setPlotId(plotId) {
-        messageBox.text = "Plot loaded: " + plotId
-        console.log("component loaded with plot ID:", plotId)
-    }
+    // Plot ID property - set from parent, propagates via bindings
+    property string plotId: ""
 
     ColumnLayout {
         anchors.centerIn: parent
@@ -50,6 +48,7 @@ Rectangle {
                 anchors.centerIn: parent
                 color: PluginTheme.white
                 font.pixelSize: 16
+                text: "Plot loaded: " + plotId
             }
         }
 

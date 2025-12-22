@@ -6,7 +6,7 @@ Rectangle {
     id: tabWidget
     color: PluginTheme.white
     // Properties
-    property string currentPlotId: ""
+    property string plotId: ""
 
     // UI Constants
     readonly property int tabHeight: 40
@@ -87,7 +87,7 @@ Rectangle {
                     Text {
                         id: headerTitle
 
-                        text: "Plot: " + currentPlotId 
+                        text: "Plot: " + plotId 
                         font.pixelSize: 24
                         font.bold: true
                         horizontalAlignment: Text.AlignHCenter
@@ -125,19 +125,13 @@ Rectangle {
                         
                         Text {
                             id: strataDetailsText
-                            // Simple reactive text that updates when currentPlotId changes
-                            text: "Tab content - Plot: " + tabWidget.currentPlotId
+                            // Simple reactive text that updates when plotId changes
+                            text: "Tab content - Plot: " + tabWidget.plotId
                         }
                     }
                 }
             }
         }       
     }
-    
-    // Handler methods to be called from parent component
-    function setPlotId(plotId) {
-        console.log("TabWidget: Plot loaded -", plotId)
-        currentPlotId = plotId
-    }
-    
+        
 }

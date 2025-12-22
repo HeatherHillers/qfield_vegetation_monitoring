@@ -60,7 +60,7 @@ Item {
           it.close()
           pluginLoader.active = true
           // pass the plot id to the plugin component
-          pluginLoader.item.setPlotId(feature.attribute("plot_id"))
+          pluginLoader.item.plotId = feature.attribute("plot_id")
           return true
         }
         it.close();

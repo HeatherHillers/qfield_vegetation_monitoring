@@ -17,7 +17,7 @@ import Theme
  */
 Page {
     id: headerPage
-    
+
     // Explicit height for ScrollView detection (Page handles scrolling automatically)
     implicitHeight: headerColumn.implicitHeight + 40
     
@@ -78,7 +78,14 @@ Page {
     // STATE
     // ===================================================================
     
-    property string currentPlotId: ""
+    property string plotId: ""   
+    // Load plot data when plotId changes (set via binding from parent)
+    onPlotIdChanged: {
+        if (plotId && controllersReady && formController) {
+            console.log("HeaderPage: Loading plot", plotId)
+            formController.loadPlot(plotId)
+        }
+    }
     property bool controllersReady: false
     
     // Wait for all controllers to load before showing UI
@@ -115,7 +122,7 @@ Page {
             
                 // Title
                 Text {
-                    text: "Vegetation Monitoring - Plot: " + (currentPlotId || "None")
+                    text: "Vegetation Monitoring - Plot: " + (plotId || "None")
                     font.pixelSize: PluginTheme.titleFontSize
                     color: Theme.darkGray
                     width: parent.width
@@ -168,16 +175,4 @@ Page {
             }  // Column
         }  // Rectangle
     
-    // ===================================================================
-    // PUBLIC API
-    // ===================================================================
-    
-    /**
-     * Load a plot by ID
-     * This is the main entry point called by parent components
-     */
-    function setPlotId(plotId) {
-        currentPlotId = plotId
-        formController.loadPlot(plotId)
-    }
 }

@@ -21,13 +21,10 @@ Rectangle {
     id: titleBar
     anchors.fill: parent
     color: PluginTheme.vanilla
+    property string plotId: ""
 
     // Signal to the parent component to deactivate the plugin
     signal closed()
-
-    function setPlotId(plotId) {
-        titleText.text = "Plot: " + plotId
-    }
 
     Label {
         id: titleText
@@ -35,6 +32,7 @@ Rectangle {
         color: PluginTheme.green
         font.pixelSize: PluginTheme.titleFontSize
         font.bold: true
+        text: "Plot: " + plotId
     }
     
     QfToolButton {
