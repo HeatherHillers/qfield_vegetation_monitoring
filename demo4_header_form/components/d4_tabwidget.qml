@@ -6,7 +6,7 @@ Rectangle {
     id: tabWidget
     color: PluginTheme.vanilla
     // Properties
-    property string plotId: ""
+    property string plotId: parent.plotId
     property var strataPages: []  // Array to store references to loaded strata pages
     
     // UI Constants
@@ -75,12 +75,9 @@ Rectangle {
             
             Loader {
                 id: headerPageLoader
+                property string plotId: tabWidget.plotId
                 source: "d4_headerpage.qml"
                 width: headerScrollView.availableWidth
-
-                onLoaded: {
-                    item.plotId = Qt.binding(function() { return tabWidget.plotId })
-                }
             }
         }
 
@@ -99,32 +96,18 @@ Rectangle {
                 
                 Loader {
                     id: strataPageLoader
+                    property string plotId: tabWidget.plotId
+                    property string strataName: tabModel.get(index + 1).name  // +1 to skip header
                     source: "d4_stratapage.qml"
                     width: strataScrollView.availableWidth
                     
                     onLoaded: {
-                        item.strataName = tabModel.get(index + 1).name  // +1 to skip header
-                        
-                        // Store reference to the loaded item
-                        item.plotId = Qt.binding(function() { return tabWidget.plotId })
+                        // store reference to loaded strata page
                         tabWidget.strataPages.push(item)
-
                     }
                 }
             }
         }       
     }
-    
-    // Handler methods to be called from parent component
-    function setPlotId(plotId) {
-        currentPlotId = plotId
-        headerPageLoader.item.setPlotId(plotId)
-        
-        // Call setPlotId for each loaded strata page
-        for (var i = 0; i < strataPages.length; i++) {
-            if (strataPages[i] && strataPages[i].setPlotId) {
-                strataPages[i].setPlotId(plotId)
-            }
-        }
-    }       
+      
 }

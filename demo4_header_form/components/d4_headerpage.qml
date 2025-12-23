@@ -17,7 +17,7 @@ import Theme
  */
 Page {
     id: headerPage
-
+    property string plotId: parent.plotId
     // Explicit height for ScrollView detection (Page handles scrolling automatically)
     implicitHeight: headerColumn.implicitHeight + 40
     
@@ -78,7 +78,6 @@ Page {
     // STATE
     // ===================================================================
     
-    property string plotId: ""   
     // Load plot data when plotId changes (set via binding from parent)
     onPlotIdChanged: {
         if (plotId && controllersReady && formController) {

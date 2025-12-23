@@ -14,8 +14,8 @@ Rectangle {
     id: strataPage
     
     // Properties to be set by parent
-    property string strataName: "Strata"
-    property string plotId: ""
+    property string strataName: parent.strataName
+    property string plotId: parent.plotId
     
     
     // Computed style properties with fallbacks
@@ -40,7 +40,7 @@ Rectangle {
         
         Text {
             id: strataDetailsText
-            text: "Tab content - Plot: " + strataPage.currentPlotId
+            text: "Tab content - Plot: " + strataPage.plotId
             color: Theme.darkGray
         }
         
@@ -52,9 +52,4 @@ Rectangle {
         }
     }
     
-    // Handler methods to be called from parent component
-    function setPlotId(plotId) {
-        currentPlotId = plotId
-        console.log("StrataPage (" + strataName + "): Updated for plot", plotId)
-    }
 }
