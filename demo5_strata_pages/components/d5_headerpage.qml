@@ -17,6 +17,7 @@ import Theme
  */
 Page {
     id: headerPage
+    property string plotId: parent.plotId
     
     // Explicit height for ScrollView detection (Page handles scrolling automatically)
     implicitHeight: headerColumn.implicitHeight + 40
@@ -78,7 +79,6 @@ Page {
     // STATE
     // ===================================================================
     
-    property string plotId: ""
     property bool controllersReady: false
     
     // Wait for all controllers to load before showing UI
@@ -176,10 +176,4 @@ Page {
             }  // Column
         }  // Rectangle
     
-    // ===================================================================
-    // PUBLIC API
-    // ===================================================================
-    
-    // plotId is now set via binding from parent tabWidget
-    // Data loading is triggered automatically by onPlotIdChanged handler
 }

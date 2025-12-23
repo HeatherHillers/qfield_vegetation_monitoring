@@ -34,15 +34,10 @@ Rectangle {
 
         Loader {
             id: titleBarLoader
+            property string plotId: pluginFrame.plotId
             width: pluginFrame.width 
             height: 100  // Fixed height for title bar
             source: "d5_titlebar.qml"
-            
-            onLoaded: {
-                if (item) {
-                    item.plotId = Qt.binding(function() { return pluginFrame.plotId })
-                }
-            }
         }
         // Close button is inside the title bar.  Pass along its closed signal to the plugin.
         Connections {
@@ -54,15 +49,10 @@ Rectangle {
         // TabWidget to display search results
         Loader {
             id: tabWidgetLoader
+            property string plotId: pluginFrame.plotId
             width: pluginFrame.width  // Use parent (Column) width
             height: pluginFrame.height - titleBarLoader.height - 20 // Fill remaining Column space
             source: "d5_tabwidget.qml"
-            
-            onLoaded: {
-                if (item) {
-                    item.plotId = Qt.binding(function() { return pluginFrame.plotId })
-                }
-            }
         }
     }
     

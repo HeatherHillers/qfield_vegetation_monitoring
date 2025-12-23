@@ -20,9 +20,9 @@ Rectangle {
     // ===================================================================
     // EXTERNAL PROPERTIES - Set by parent
     // ===================================================================
-    property string strataName: ""
-    property string strataCode: ""
-    property string plotId: ""
+    property string strataName: parent.strataName
+    property string strataCode: parent.strataCode
+    property string plotId: parent.plotId
 
     onPlotIdChanged: {
         // plot id comes in after the page is created - load entries when it is set.
