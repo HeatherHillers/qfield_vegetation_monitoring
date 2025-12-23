@@ -1,9 +1,8 @@
   
 /*
   This plugin component loads a title bar and a tab widget to display information about a selected plot.
-  */
+*/
  
-
 import QtQuick 
 import QtQuick.Controls 
 import QtQuick.Layouts  
@@ -35,14 +34,11 @@ Rectangle {
         // Title bar component loaded from d3_titlebar.qml
         Loader {
             id: titleBarLoader
+            // define the plotId property here to propagate to the Loader children
+            property string plotId: pluginFrame.plotId
             width: pluginFrame.width 
             height: 100  // Fixed height for title bar
             source: "d3_titlebar.qml"
-            onLoaded: {
-                if (item) {
-                    item.plotId = Qt.binding(function() { return pluginFrame.plotId })
-                }
-            }
         }
 
         // Close button is inside the title bar.  Pass along its closed signal to the plugin.
@@ -56,15 +52,11 @@ Rectangle {
         // TabWidget to display search results
         Loader {
             id: tabWidgetLoader
+            // define the plotId property here to propagate to the Loader children
+            property string plotId: pluginFrame.plotId
             width: pluginFrame.width
             height: pluginFrame.height - titleBarLoader.height - 20
             source: "d3_tabwidget.qml"
-
-            onLoaded: {
-                if (item) {
-                    item.plotId = Qt.binding(function() { return pluginFrame.plotId })
-                }
-            }
         }
     }
 }

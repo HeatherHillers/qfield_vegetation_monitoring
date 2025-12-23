@@ -21,7 +21,7 @@ Rectangle {
     id: titleBar
     anchors.fill: parent
     color: PluginTheme.vanilla
-    property string plotId: ""
+    property string plotId: parent.plotId
 
     // Signal to the parent component to deactivate the plugin
     signal closed()

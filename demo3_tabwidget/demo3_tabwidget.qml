@@ -9,7 +9,8 @@ import org.qgis
 import Theme  
 
 import "qrc:/qml" as QFieldItems
-/* demo3_tabwidget demonstrates the use of a cool swipey tab widget.   
+/* 
+  demo3_tabwidget demonstrates the use of a cool swipey tab widget.   
 */
 
 

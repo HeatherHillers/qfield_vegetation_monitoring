@@ -6,7 +6,7 @@ Rectangle {
     id: tabWidget
     color: PluginTheme.white
     // Properties
-    property string plotId: ""
+    property string plotId: parent.plotId
 
     // UI Constants
     readonly property int tabHeight: 40
