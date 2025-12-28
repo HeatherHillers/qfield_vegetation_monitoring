@@ -5,15 +5,16 @@ import QtQuick.Layouts
 import org.qfield  
 import org.qgis
 import Theme  
+import "."
 
 /**
  * Header Page 
  * 
  * Architecture:
- *   - Data Controller: Pure QField/QGIS API (WORKSHOP FOCUS)
- *   - Form Controller: Mediates between data and UI
- *   - Widget Accessor: Standardizes widget value access
- *   - UI Layer: This file - just presentation
+ *   - Form Controller: Mediates between data layers and UI
+ *      - load called when plotId changes
+ *      - save called when user clicks save button
+ *   - Layout: Layout is the focus of this file
  */
 Page {
     id: headerPage
@@ -25,81 +26,29 @@ Page {
     // CONTROLLERS - Separated concerns
     // ===================================================================
     
-    // Data layer - QField/QGIS API interactions
-    Loader {
-        id: dataControllerLoader
-        source: "d4_data_controller.qml"
-        onLoaded: {
-            item.featureSaved.connect(function() {
-                console.log("Feature saved successfully")
-            })
-            
-            item.error.connect(function(message) {
-                console.log("Data error:", message)
-            })
-        }
-    }
-    property var dataController: dataControllerLoader.item
-    
     // Form coordination layer
-    Loader {
-        id: formControllerLoader
-        source: "d4_form_controller.qml"
-        onLoaded: {
-            item.dataController = Qt.binding(function() { return dataController })
-            item.dataModel = Qt.binding(function() { return formDataModel })
-            
-            item.saved.connect(function() {
-                console.log("Form saved")
-            })
-        }
+    FormController {
+        id: controller
     }
-    property var formController: formControllerLoader.item
     
-    // Widget accessor factory: provides a simple getValue/setValue API 
-    // for all used types of form widget (text, numeric range)
-    Loader {
-        id: widgetAccessorLoader
-        source: "d4_widget_accessor.qml"
-    }
-    property var widgetAccessor: widgetAccessorLoader.item
-    
-    // ===================================================================
-    // DATA MODEL
-    // ===================================================================
-    
-    Loader {
-        id: dataModelLoader
-        source: "d4_form_data_model.qml"
-    }
-    property var formDataModel: dataModelLoader.item
+    // Property alias to expose controller to children
+    property var formController: controller
     
     // ===================================================================
     // STATE
     // ===================================================================
     
+    
     // Load plot data when plotId changes (set via binding from parent)
     onPlotIdChanged: {
-        if (plotId && controllersReady && formController) {
+        if (plotId ) {
             console.log("HeaderPage: Loading plot", plotId)
             formController.loadPlot(plotId)
         }
     }
-    property bool controllersReady: false
-    
-    // Wait for all controllers to load before showing UI
-    onDataControllerChanged: checkControllersReady()
-    onFormControllerChanged: checkControllersReady()
-    onWidgetAccessorChanged: checkControllersReady()
-    
-    function checkControllersReady() {
-        controllersReady = (dataController !== null && 
-                           formController !== null && 
-                           widgetAccessor !== null)
-    }
     
     // ===================================================================
-    // UI LAYER - Pure presentation
+    // LAYOUT
     // ===================================================================
     
     // Main content (Page handles scrolling automatically)
@@ -109,7 +58,7 @@ Page {
         color: PluginTheme.vanilla
         border.color: PluginTheme.vanilla
         border.width: 1
-        visible: controllersReady
+        visible: formController !== null
         
         Column {
             id: headerColumn
@@ -119,59 +68,55 @@ Page {
             anchors.margins: 10
             spacing: 15
             
-                // Title
+            // Title
+            Text {
+                text: "Vegetation Monitoring - Plot: " + (plotId || "None")
+                font.pixelSize: PluginTheme.titleFontSize
+                color: Theme.darkGray
+                width: parent.width
+                horizontalAlignment: Text.AlignHCenter
+                font.bold: true
+            }
+            
+            // Save button
+            Rectangle {
+                id: saveButton
+                width: 200
+                height: 50
+                anchors.horizontalCenter: parent.horizontalCenter
+                color: formController.hasUnsavedChanges ? "#2E7D32" : "#1B5E20"
+                radius: 10
+                border.color: Theme.darkGray
+                border.width: 1
+                
                 Text {
-                    text: "Vegetation Monitoring - Plot: " + (plotId || "None")
-                    font.pixelSize: PluginTheme.titleFontSize
-                    color: Theme.darkGray
-                    width: parent.width
-                    horizontalAlignment: Text.AlignHCenter
+                    anchors.centerIn: parent
+                    text: formController.hasUnsavedChanges ? "⚠ Save Data" : "✓ Saved"
+                    color: PluginTheme.white
+                    font.pixelSize: PluginTheme.inputFontSize
                     font.bold: true
                 }
                 
-                // Save button
-                Rectangle {
-                    id: saveButton
-                    width: 200
-                    height: 50
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    color: formController.hasUnsavedChanges ? "#2E7D32" : "#1B5E20"
-                    radius: 10
-                    border.color: Theme.darkGray
-                    border.width: 1
-                    
-                    Text {
-                        anchors.centerIn: parent
-                        text: formController.hasUnsavedChanges ? "⚠ Save Data" : "✓ Saved"
-                        color: PluginTheme.white
-                        font.pixelSize: PluginTheme.inputFontSize
-                        font.bold: true
-                    }
-                    
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            if (formController.hasUnsavedChanges) {
-                                formController.save()
-                            }
-                        }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        formController.save()
                     }
                 }
+            }
+            
+            // Dynamic form sections from data model
+            Repeater {
+                model: FormDataModel.groupBoxes
                 
-                // Dynamic form sections from data model
-                Repeater {
-                    model: (controllersReady && formDataModel) ? formDataModel.groupBoxes : []
+                delegate: FormSection {
+                    width: parent.width
+                    sectionData: modelData
                     
-                    delegate: FormSection {
-                        width: parent.width
-                        sectionData: modelData
-                        
-                        // Pass controller references
-                        formController: headerPage.formController
-                        widgetAccessor: headerPage.widgetAccessor
-                    }
+                    // Pass controller reference
+                    controller: headerPage.formController
                 }
-            }  // Column
-        }  // Rectangle
-    
+            }
+        }  // Column
+    }  // Rectangle
 }

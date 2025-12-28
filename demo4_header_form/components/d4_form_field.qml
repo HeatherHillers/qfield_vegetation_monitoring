@@ -14,7 +14,6 @@ Rectangle {
     
     property var fieldData: null
     property var formController: null
-    property var widgetAccessor: null
     
     property bool isTextField: fieldData ? (fieldData.fieldType === "text") : false
     
@@ -129,37 +128,42 @@ Rectangle {
         }
     }
     
-    // Auto-register with form controller when component is complete
+    // Auto-register with form controller when it becomes available
+    property bool widgetRegistered: false
+    
     Component.onCompleted: {
-        if (!fieldData || !formController || !widgetAccessor) {
-            return
+        if (formController && fieldData && !widgetRegistered) {
+            registerWidget()
         }
-        
-        // Register widget immediately - controllers are guaranteed ready
-        registerWidget()
+    }
+    
+    onFormControllerChanged: {
+        if (formController && fieldData && !widgetRegistered) {
+            registerWidget()
+        }
     }
     
     function registerWidget() {
-        if (!fieldData || !formController || !widgetAccessor) return
+        if (!fieldData || !formController || widgetRegistered) return
         
         var accessor
         if (isTextField) {
-            accessor = widgetAccessor.createTextAccessor(textInput)
+            accessor = WidgetAccessor.createTextAccessor(textInput)
             formController.registerWidget(fieldData.id, accessor)
-            console.log("Registered text widget:", fieldData.id)
+            widgetRegistered = true
         } else {
             // For numeric fields, need to wait for loader to complete
             if (numericInputLoader.status === Loader.Ready) {
-                accessor = widgetAccessor.createRangeAccessor(numericInputLoader)
+                accessor = WidgetAccessor.createRangeAccessor(numericInputLoader)
                 formController.registerWidget(fieldData.id, accessor)
-                console.log("Registered numeric widget:", fieldData.id)
+                widgetRegistered = true
             } else {
                 // Loader not ready yet, connect to onLoaded
                 numericInputLoader.onLoaded.connect(function() {
-                    if (formController && widgetAccessor) {
-                        var acc = widgetAccessor.createRangeAccessor(numericInputLoader)
+                    if (formController && !widgetRegistered) {
+                        var acc = WidgetAccessor.createRangeAccessor(numericInputLoader)
                         formController.registerWidget(fieldData.id, acc)
-                        console.log("Registered numeric widget (deferred):", fieldData.id)
+                        widgetRegistered = true
                     }
                 })
             }

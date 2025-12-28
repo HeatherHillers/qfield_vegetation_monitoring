@@ -1,8 +1,14 @@
+pragma Singleton
 import QtQuick
 
 // Widget Value Accessor Factory
-// Creates standardized accessors for different widget types
-// Hides the complexity of loader chains and widget-specific APIs
+// Creates a simple setValue/getValue API for all widget types used in the header form.
+// This reduces the need for type checking and reduces proclivity for type errors
+// in the load and save functions.
+
+// a note to Python programmers: these javascript functions internally store
+// their parameters.  The returned function closures remember these parameters without#
+// their being saved explicitly in object properties.
 
 QtObject {
     /**

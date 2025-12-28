@@ -1,3 +1,4 @@
+pragma Singleton
 import QtQuick
 
 // Data model defining all form fields and their configuration
@@ -61,9 +62,4 @@ QtObject {
         return commentFields.concat(deckungFields).concat(vegetationHeightFields).concat(areaPercentageFields)
     }
     
-    // Helper function to find field by ID
-    function getFieldById(fieldId) {
-        const allFields = getAllFields()
-        return allFields.find(field => field.id === fieldId)
-    }
 }
