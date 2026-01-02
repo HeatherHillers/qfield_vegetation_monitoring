@@ -1,5 +1,4 @@
 import QtQuick
-import QtQuick.Controls
 import QtQuick.Layouts
 
 import org.qfield  
@@ -16,29 +15,23 @@ import "."
  *      - save called when user clicks save button
  *   - Layout: Layout is the focus of this file
  */
-Page {
+Rectangle {
     id: headerPage
     property string plotId: parent.plotId
-    // Explicit height for ScrollView detection (Page handles scrolling automatically)
     implicitHeight: headerColumn.implicitHeight + 40
     
-    // ===================================================================
-    // CONTROLLERS - Separated concerns
-    // ===================================================================
+    color: PluginTheme.vanilla
+    border.color: PluginTheme.vanilla
+    border.width: 1
     
-    // Form coordination layer
+    // Form coordination between data and UI
     FormController {
         id: controller
     }
     
-    // Property alias to expose controller to children
+    // Obfuscation: Property alias to expose controller to children
     property var formController: controller
-    
-    // ===================================================================
-    // STATE
-    // ===================================================================
-    
-    
+        
     // Load plot data when plotId changes (set via binding from parent)
     onPlotIdChanged: {
         if (plotId ) {
@@ -51,25 +44,16 @@ Page {
     // LAYOUT
     // ===================================================================
     
-    // Main content (Page handles scrolling automatically)
-    Rectangle {
-        id: headerContainer
-        anchors.fill: parent
-        color: PluginTheme.vanilla
-        border.color: PluginTheme.vanilla
-        border.width: 1
-        visible: formController !== null
+    Column {
+        id: headerColumn
+        width: parent.width - 20
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.top
+        anchors.margins: 10
+        spacing: 15
         
-        Column {
-            id: headerColumn
-            width: parent.width - 20
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: parent.top
-            anchors.margins: 10
-            spacing: 15
-            
-            // Title
-            Text {
+        // Title
+        Text {
                 text: "Vegetation Monitoring - Plot: " + (plotId || "None")
                 font.pixelSize: PluginTheme.titleFontSize
                 color: Theme.darkGray
@@ -78,45 +62,44 @@ Page {
                 font.bold: true
             }
             
-            // Save button
-            Rectangle {
-                id: saveButton
-                width: 200
-                height: 50
-                anchors.horizontalCenter: parent.horizontalCenter
-                color: formController.hasUnsavedChanges ? "#2E7D32" : "#1B5E20"
-                radius: 10
-                border.color: Theme.darkGray
-                border.width: 1
-                
-                Text {
-                    anchors.centerIn: parent
-                    text: formController.hasUnsavedChanges ? "⚠ Save Data" : "✓ Saved"
-                    color: PluginTheme.white
-                    font.pixelSize: PluginTheme.inputFontSize
-                    font.bold: true
-                }
-                
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        formController.save()
-                    }
-                }
+        // Save button
+        Rectangle {
+            id: saveButton
+            width: 200
+            height: 50
+            anchors.horizontalCenter: parent.horizontalCenter
+            color: formController.hasUnsavedChanges ? "#2E7D32" : "#1B5E20"
+            radius: 10
+            border.color: Theme.darkGray
+            border.width: 1
+            
+            Text {
+                anchors.centerIn: parent
+                text: formController.hasUnsavedChanges ? "⚠ Save Data" : "✓ Saved"
+                color: PluginTheme.white
+                font.pixelSize: PluginTheme.inputFontSize
+                font.bold: true
             }
             
-            // Dynamic form sections from data model
-            Repeater {
-                model: FormDataModel.groupBoxes
-                
-                delegate: FormSection {
-                    width: parent.width
-                    sectionData: modelData
-                    
-                    // Pass controller reference
-                    controller: headerPage.formController
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    formController.save()
                 }
             }
-        }  // Column
-    }  // Rectangle
+        }
+        
+        // Dynamic form sections from data model
+        Repeater {
+            model: FormDataModel.groupBoxes
+            
+            delegate: FormSection {
+                width: parent.width
+                sectionData: modelData
+                
+                // Pass controller reference
+                controller: headerPage.formController
+            }
+        }
+    }  // Column
 }

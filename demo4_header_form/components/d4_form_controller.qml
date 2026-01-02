@@ -7,19 +7,9 @@ QtObject {
     id: formController
     
     // Data layer - QField/QGIS API interactions
-    property var dataControllerLoader: Loader {
-        source: "d4_data_controller.qml"
-        onLoaded: {
-            item.featureSaved.connect(function() {
-                console.log("Feature saved successfully")
-            })
-            
-            item.error.connect(function(message) {
-                console.log("Data error:", message)
-            })
-        }
+    property var dataController: DataController {
+        id: dataControllerInstance
     }
-    property var dataController: dataControllerLoader.item
     
     // Reference to form data model
     property var dataModel: FormDataModel
@@ -185,7 +175,7 @@ QtObject {
             return
         }
         
-        var feature = dataController.loadFeatureForPlot(plotId)
+        var feature = dataController.loadHeaderForPlot(plotId)
         if (feature) {
             populateFormFromFeature(feature)
         }
