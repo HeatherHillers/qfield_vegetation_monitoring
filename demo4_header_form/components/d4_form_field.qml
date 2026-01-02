@@ -105,7 +105,6 @@ Rectangle {
                     
                     // Connect change signal directly
                     rangeItem.realValueChanged.connect(function() {
-                        console.log("!!! Range value changed for:", fieldData.id)
                         if (formController) {
                             formController.markChanged()
                         }
@@ -121,7 +120,6 @@ Rectangle {
         enabled: !isTextField && target !== null
         
         function onRealValueChanged() {
-            console.log("!!! Connections: Range value changed for:", fieldData ? fieldData.id : "unknown")
             if (formController) {
                 formController.markChanged()
             }

@@ -94,13 +94,11 @@ QtObject {
             }
         })
         
-        console.log("Collected form values:", JSON.stringify(values))
         return values
     }
     
     /**
      * Populate form widgets from feature data
-     * If widgets aren't ready yet, store feature for later
      */
     function populateFormFromFeature(feature) {
         if (!dataModel || !feature) return
@@ -130,7 +128,6 @@ QtObject {
     function clearAllWidgets() {
         if (!dataModel) return
         
-        console.log("Clearing all widgets")
         var allFields = dataModel.getAllFields()
         
         allFields.forEach(function(field) {

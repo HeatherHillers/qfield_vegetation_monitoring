@@ -1,6 +1,6 @@
+// d4_headerpage.qml
 import QtQuick
 import QtQuick.Layouts
-
 import org.qfield  
 import org.qgis
 import Theme  
@@ -34,7 +34,7 @@ Rectangle {
         
     // Load plot data when plotId changes (set via binding from parent)
     onPlotIdChanged: {
-        if (plotId ) {
+        if (plotId) {
             console.log("HeaderPage: Loading plot", plotId)
             formController.loadPlot(plotId)
         }

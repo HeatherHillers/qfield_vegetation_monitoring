@@ -1,6 +1,8 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import Theme
+import "."
 
 Rectangle {
     id: tabWidget
@@ -31,7 +33,7 @@ Rectangle {
                 id: tabButton
                 anchors.verticalCenter: parent.verticalCenter
                 height: tabBar.height
-                background: Rectangle { color: "black"}
+                background: Rectangle { color: Theme.darkGray}
                 contentItem: Text {
                     text: model.name // Set text of tab from the tabModel property
                     color: tabButton.checked ? PluginTheme.green : PluginTheme.white
@@ -68,7 +70,7 @@ Rectangle {
         ScrollView {
             id: headerScrollView
             contentWidth: headerPageLoader.width
-            contentHeight: headerPageLoader.item ? headerPageLoader.item.implicitHeight : 0
+            contentHeight: headerPageLoader.item.implicitHeight
             clip: true
             ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
             ScrollBar.vertical.policy: ScrollBar.AsNeeded
@@ -89,7 +91,7 @@ Rectangle {
             ScrollView {
                 id: strataScrollView
                 contentWidth: strataPageLoader.width
-                contentHeight: strataPageLoader.item ? strataPageLoader.item.implicitHeight : 0
+                contentHeight: 0
                 clip: true
                 ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
                 ScrollBar.vertical.policy: ScrollBar.AsNeeded
