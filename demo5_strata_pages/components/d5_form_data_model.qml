@@ -1,3 +1,4 @@
+pragma Singleton
 import QtQuick
 
 // Data model defining all form fields and their configuration
@@ -9,7 +10,6 @@ QtObject {
         { id: "comment", label: "Comments (max 255 characters)", attributeIndex: 4, fieldType: "text", maxLength: 255 }
     ]
     
-    // Field configuration structure
     readonly property var deckungFields: [
         { id: "t1_cover", label: "1. Canopy", attributeIndex: 5, stepSize: 5 },
         { id: "t2_cover", label: "2. Canopy", attributeIndex: 6, stepSize: 5 },
@@ -62,9 +62,4 @@ QtObject {
         return commentFields.concat(deckungFields).concat(vegetationHeightFields).concat(areaPercentageFields)
     }
     
-    // Helper function to find field by ID
-    function getFieldById(fieldId) {
-        const allFields = getAllFields()
-        return allFields.find(field => field.id === fieldId)
-    }
 }

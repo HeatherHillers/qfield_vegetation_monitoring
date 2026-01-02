@@ -1,21 +1,24 @@
 import QtQuick
-
+import "."
 // Form Controller: Bridges between data layer and UI widgets
 // Handles widget value synchronization without QField API details
 QtObject {
     id: formController
     
-    // Reference to data controller
-    property var dataController: null
+    // Data layer - QField/QGIS API interactions
+    property var dataController: DataController {
+        id: dataControllerInstance
+    }
     
     // Reference to form data model
-    property var dataModel: null
+    property var dataModel: FormDataModel
     
     // Widget registry - maps field IDs to widget accessors
     property var widgets: ({})
     
     // State
     property bool hasUnsavedChanges: false
+    property var pendingFeature: null  // Feature waiting for widgets to be ready
     
     // Signals
     signal saved()
@@ -24,11 +27,29 @@ QtObject {
     
     /**
      * Register a widget for a field
-     * Simplifies widget access by hiding loader complexity
+     * If we have a pending feature, populate it after registration
      */
     function registerWidget(fieldId, widgetAccessor) {
         widgets[fieldId] = widgetAccessor
+         
+        // Check if all widgets are now registered and we have pending data
+        if (pendingFeature && allWidgetsRegistered()) {
+            populateFormFromFeature(pendingFeature)
+            pendingFeature = null
+        }
     }
+    
+    /**
+     * Check if all expected widgets are registered
+     */
+    function allWidgetsRegistered() {
+        if (!dataModel) return false
+        
+        var allFields = dataModel.getAllFields()
+        var registeredCount = Object.keys(widgets).length
+        
+        return registeredCount === allFields.length
+}
     
     /**
      * Get widget value for a field
@@ -80,7 +101,13 @@ QtObject {
      */
     function populateFormFromFeature(feature) {
         if (!dataModel || !feature) return
-        
+
+         // Check if all widgets are registered yet
+        if (!allWidgetsRegistered()) {
+            pendingFeature = feature
+            return
+        }       
+
         var allFields = dataModel.getAllFields()
         
         allFields.forEach(function(field) {
@@ -115,6 +142,10 @@ QtObject {
      * Save form values to the current feature
      */
     function save() {
+        if (!hasUnsavedChanges) {
+            console.log("No changes to save")
+            return success
+        }
         if (!dataController) {
             console.log("No data controller")
             return false
@@ -140,7 +171,7 @@ QtObject {
             return
         }
         
-        var feature = dataController.loadFeatureForPlot(plotId)
+        var feature = dataController.loadHeaderForPlot(plotId)
         if (feature) {
             populateFormFromFeature(feature)
         }

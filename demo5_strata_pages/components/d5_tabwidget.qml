@@ -78,8 +78,7 @@ Rectangle {
                 id: headerPageLoader
                 property string plotId: tabWidget.plotId
                 source: "d5_headerpage.qml"
-                width: headerScrollView.availableWidth
-                
+                width: headerScrollView.availableWidth               
             }
         }
 
@@ -91,7 +90,7 @@ Rectangle {
             ScrollView {
                 id: strataScrollView
                 contentWidth: strataPageLoader.width
-                contentHeight: 0 //strataPageLoader.item.implicitHeight
+                contentHeight: 0 
                 clip: true
                 ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
                 ScrollBar.vertical.policy: ScrollBar.AsNeeded

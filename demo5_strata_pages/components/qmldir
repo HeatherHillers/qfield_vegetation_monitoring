@@ -3,3 +3,7 @@ singleton MenuProvider 1.0 d5_menu_provider.qml
 # Refactored components for cleaner separation
 FormSection 1.0 d5_form_section.qml
 FormField 1.0 d5_form_field.qml
+FormController 1.0 d5_form_controller.qml
+DataController 1.0 d5_data_controller.qml
+singleton FormDataModel 1.0 d5_form_data_model.qml
+singleton WidgetAccessor 1.0 d5_widget_accessor.qml

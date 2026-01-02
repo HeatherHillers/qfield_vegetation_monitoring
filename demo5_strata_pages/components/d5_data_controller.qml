@@ -1,9 +1,9 @@
+// d5_data_controller.qml
 import QtQuick
 import org.qfield  
 import org.qgis
 
-// Data Controller: Handles all QField/QGIS layer interactions
-// This is the WORKSHOP FOCUS - pure QField API without UI concerns
+// Data Controller: Handles all QField/QGIS layer interactions for the plot header form
 QtObject {
     id: dataController
     
@@ -18,21 +18,18 @@ QtObject {
     signal featureSaved()
     signal error(string message)
     
-    // ===================================================================
-    // CORE QFIELD API FUNCTIONS - This is what workshop participants learn
-    // ===================================================================
     
     /**
      * Load or create a feature for the given plot ID
      * Demonstrates: Feature iteration, feature creation, LayerUtils
      */
-    function loadFeatureForPlot(plotId) {
+    function loadHeaderForPlot(plotId) {
         if (!plotId) {
             error("No plot ID provided")
             return null
         }
         
-        console.log("Loading feature for plot:", plotId)
+        console.log("Loading Header Row feature for plot:", plotId)
         
         // Query for existing feature
         var expression = "plot_id = '" + plotId + "'"
@@ -42,7 +39,7 @@ QtObject {
             // Feature exists - load it
             currentFeature = iterator.next()
             iterator.close()  // CRITICAL: Always close iterators
-            console.log("Found existing feature for plot:", plotId)
+            console.log("Found existing Header Row feature for plot:", plotId)
         } else {
             iterator.close()  // CRITICAL: Always close iterators
             

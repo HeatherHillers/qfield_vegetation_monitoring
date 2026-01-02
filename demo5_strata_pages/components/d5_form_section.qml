@@ -13,8 +13,7 @@ Rectangle {
     
     // Properties from parent
     property var sectionData: null
-    property var formController: null
-    property var widgetAccessor: null
+    property var controller: null
     
     height: groupContent.implicitHeight + 40
     color: PluginTheme.vanilla
@@ -48,8 +47,7 @@ Rectangle {
                 
                 delegate: FormField {
                     fieldData: modelData
-                    formController: groupBox.formController
-                    widgetAccessor: groupBox.widgetAccessor
+                    formController: groupBox.controller
                 }
             }
         }
