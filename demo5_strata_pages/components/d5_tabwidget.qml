@@ -90,7 +90,7 @@ Rectangle {
             ScrollView {
                 id: strataScrollView
                 contentWidth: strataPageLoader.width
-                contentHeight: 0 
+                contentHeight: strataPageLoader.item ? strataPageLoader.item.implicitHeight : 0
                 clip: true
                 ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
                 ScrollBar.vertical.policy: ScrollBar.AsNeeded

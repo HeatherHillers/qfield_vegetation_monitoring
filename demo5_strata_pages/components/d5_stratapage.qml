@@ -17,6 +17,8 @@ import "."
 Rectangle {
     id: strataPage
     
+    implicitHeight: strataColumn.implicitHeight + 30
+    
     // ===================================================================
     // EXTERNAL PROPERTIES - Set by parent
     // ===================================================================
