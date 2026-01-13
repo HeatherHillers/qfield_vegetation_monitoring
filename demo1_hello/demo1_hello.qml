@@ -28,6 +28,22 @@ Item {
     active: false
     anchors.fill: parent
     source: Qt.resolvedUrl('./components/d1_plugin_component.qml')
+    
+    onStatusChanged: {
+      if (pluginLoader.status === Loader.Loading) {
+        iface.logMessage("Loader status: Loading component from " + source)
+      } else if (pluginLoader.status === Loader.Ready) {
+        iface.logMessage("Loader status: Ready - Component loaded successfully")
+      } else if (pluginLoader.status === Loader.Error) {
+        iface.logMessage("Loader status: ERROR - Failed to load component: " + pluginLoader.sourceComponent.errorString())
+      } else if (pluginLoader.status === Loader.Null) {
+        iface.logMessage("Loader status: Null - No component loaded")
+      }
+    }
+    
+    onLoaded: {
+      iface.logMessage("Loader: Component successfully loaded and instantiated")
+    }
   }  
 
   // open and close the Plugin
@@ -52,6 +68,7 @@ Item {
   // load the buttons
   Component.onCompleted: {
     iface.addItemToPluginsToolbar(pluginButton)
+
   }
 
 } 
