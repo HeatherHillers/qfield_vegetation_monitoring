@@ -1,4 +1,4 @@
-# qfield_vegetation_monitoring
+# QField Vegetation Monitoring
 A demonstration of a qfield project plugin for the purpose of sampling vegetaton in plots.  The purpose of this code is to show how to write a qfield project plugin.
 
 Note: This plugin is being developed for use on an iPad.  At about demo3 the view on an iPhone does get cramped.
