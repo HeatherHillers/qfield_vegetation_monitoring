@@ -7,22 +7,13 @@ Note: This plugin is being developed for use on an iPad.  At about demo3 the vie
 
 Each Demo* project in this repository is an increasingly complex version of the vegetation_monitoring project plugin.  
 
-1. demo1_hello: This is the simplest version.  It contains a hello world rectangle that is opened and closed by a plugin button.  Start here to get the basic skeleton for your plugin.
+1. demo1_hello: This is the simplest version.  It contains a hello world rectangle that is opened and closed by a plugin button.  This plugin can be used as a basis for any static messaging plugin. (Yeah, not very useful.)
 
-2. demo2_searchbar: This adds a searchbar to the project which has a menu populated with the plot_ids of all objects in the plots layer.  Selection of a plot changes the text of the title widget.  The menu is editable and has autocomplete.
+2. demo2_selection: This adds a point handler to the plugin.  The plugin button has been removed.  The user can now open the plugin by double clicking on a plot object.  Feature attribute values (plot id) are retrieved from the object and displayed in the popup text.  A close button has been added to the popup.  This plugin can be used as a basis for any custom reports plugin. (Pretty useful.)
 
-3. demo3_tabwidget:  This adds a very slick swiping tab widget.  The Tab widget uses a Repeater as a for loop to replicate the strata tabs which are going to have the same functionality, as well as for the tab buttons.  The plugin communicates the current searchBar selection to the tabWidget, using it to populate the pages with information (just the plot id).  No new api stuff here, just ui magic.
+3. demo3_header_form:  This adds a very slick swiping tab widget.  The Tab widget uses a Repeater as a for loop to replicate the strata tabs which are going to have the same functionality, as well as for the tab buttons.  The plugin communicates the current object selection to the tabWidget, using it to populate the pages with information.  THe header tab contains a custom form with a save button that inserts or updates entries in an auxilliary table (plot_header) for the given plot_id.  THe strata tabs contain only a title in this demo.  With this demo you should be able to build any custom input plugin. (Very useful.)
 
-4. demo4_header_form: This adds a form to the tabWidget's header page.  It is used to save a non spatial header table row for the plot selected in the menu.  Some more custom components are added, as well as a configurable data model for dynamically loading our field inputs, and a centralized style.
-
-5. demo5_species_entry:  This adds a nice species entry widget to each strata page, with autosave.  It's pretty neat, I think.  The component communication gets a bit complicated.
-
-6. demo6_mapclick: This plugin adds the critical ability to click on the map and open the plugin with the nearest object's plot id selected in the search bar.  Custom Form, voila!
-
-
-## What's wrong with demo6_mapclick
-
-In the desktop qfield on Ubuntu, when I open the plugin, the attribute drawer does not appear. On ios, however, both the plugin and the attribute form are appearing.  You can click on the plugin component and the attribute form will disappear, but it is not ideal.  I haven't figured out how to fix that yet.
+4. demo4_strata_pages: This demonstration completes the plugin with the implementation of species entry in the strata tabs.  
 
 ## Running the demonstration
 
