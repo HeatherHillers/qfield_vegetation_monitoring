@@ -57,7 +57,7 @@ Item {
         if (it.hasNext()) {
           // you've got a feature, play with it! :)
           const feature = it.next()
-          console.log(feature.id)
+          iface.logMessage(feature.id)
           it.close()
           pluginLoader.active = true
           // pass the plot id to the plugin component
