@@ -3,6 +3,11 @@ A demonstration of a qfield project plugin for the purpose of sampling vegetaton
 
 Note: This plugin is being developed for use on an iPad.  At about demo3 the view on an iPhone does get cramped.
 
+## Documentation
+For full documentation and workshop materials in english and in german, please visit our GitHub Pages site:
+
+https://heatherhillers.github.io/workshop_qfield_plugins_de/
+
 ## Code Demonstrations
 
 Each Demo* project in this repository is an increasingly complex version of the vegetation_monitoring project plugin.  
@@ -25,7 +30,4 @@ Each Demo* project in this repository is an increasingly complex version of the 
 6. Use the QField Sync Plugin to configure and synchronise the project and plugin to your QField client.
 7. Refer to the README.md in the demo* directory for further instructions.  
 
-Documentation
-For full documentation and workshop materials in english and in german, please visit our GitHub Pages site:
 
-https://heatherhillers.github.io/workshop_qfield_plugins_de/
