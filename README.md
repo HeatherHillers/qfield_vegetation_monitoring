@@ -25,11 +25,7 @@ Each Demo* project in this repository is an increasingly complex version of the 
 6. Use the QField Sync Plugin to configure and synchronise the project and plugin to your QField client.
 7. Refer to the README.md in the demo* directory for further instructions.  
 
-## General Recommendations for writing plugins
+Documentation
+For full documentation and workshop materials in english and in german, please visit our GitHub Pages site:
 
-1. It can be tricky to get the components and their updates to be found by qfield.  To be on certain, make sure components have unique names across projects, and test the loading of the components first before adding any functionality to them.
-2. Start QField from the command line to get qml errors. Program errors are not printed in the client's log.
-3. A synchronisation is usually not sufficient to get plugin updates.  Completely restart qfield, delete your project and download it fresh to make sure you have your latest change.  Sometimes it will become necessary to completely delete your project from qfieldcloud in order to get an update through.
-4. Dont name properties layer, as this may clash with a qt reserved property name.
-5. The internal attribute index for a feature in qfield can be different than its attribute index in qgis, and it can change.  So you have to check the attribute index before you set a value.  Do not rely on hard coded attribute indexes.
-6. Always remember to close your feature iterators. Failure to do so will catastrophically crash QField after about the 4th execution.
+https://heatherhillers.github.io/workshop_qfield_plugins_de/
