@@ -16,7 +16,7 @@ import "qrc:/qml" as QFieldItems
  */
 Item {  
   id: plugin
-  parent: iface.mapCanvas() 
+  parent: iface.mainWindow().contentItem
   anchors.fill: parent 
 
   property var mapCanvas: iface.mapCanvas() 
