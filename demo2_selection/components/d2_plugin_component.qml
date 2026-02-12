@@ -48,7 +48,7 @@ Rectangle {
                 anchors.centerIn: parent
                 color: PluginTheme.white
                 font.pixelSize: 16
-                text: "Plot loaded: " + plotId
+                text: "Plot loaded: " + pluginFrame.plotId
             }
         }
 
