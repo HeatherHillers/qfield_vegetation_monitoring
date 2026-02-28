@@ -72,6 +72,41 @@ QtObject{
             if (layer.isEditable()) layer.rollBack()
         }
     }
+
+    function deleteEntry() {
+        /**
+         * Delete the currently loaded entry from the layer.
+         * Demonstrates: layer editing workflow, deleteFeature
+         * Exercise: add a Delete button to the form that calls controller.deleteEntry()
+         */
+        try {
+            if (!currentFuid) {
+                statusMessage = "Error: No entry loaded"
+                return
+            }
+            let it = LayerUtils.createFeatureIteratorFromExpression(layer, "f_uid = '" + currentFuid + "'")
+            if (!it.hasNext()) {
+                it.close()
+                statusMessage = "Error: Entry not found in layer"
+                return
+            }
+            let fid = it.next().id
+            it.close()
+            layer.startEditing()
+            layer.deleteFeature(fid)
+            layer.commitChanges()
+            // clear selection and form
+            currentFuid = ""
+            fieldValues = {}
+            fieldValuesChanged()
+            loadEntries(plotId)
+            statusMessage = "Entry deleted."
+        } catch(e) {
+            statusMessage = "Delete error: " + e
+            if (layer.isEditable()) layer.rollBack()
+        }
+    }
+
     function createEntry() {
     /**
      * Create a new feature with initial values
@@ -135,10 +170,13 @@ QtObject{
         }
         it.close()
     }
+
     Component.onCompleted: {
         if (plotId && layer) {
             loadEntries(plotId)
         }
     }
+
+
     
 }
