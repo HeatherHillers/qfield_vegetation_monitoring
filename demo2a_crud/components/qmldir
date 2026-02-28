@@ -1,0 +1,3 @@
+singleton PluginTheme 1.0 d2a_plugin_theme.qml
+FormController 1.0 d2a_form_controller.qml
+singleton FormDataModel 1.0 d2a_data_model.qml
