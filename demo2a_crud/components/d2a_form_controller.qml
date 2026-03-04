@@ -112,7 +112,6 @@ QtObject{
      * Create a new feature with initial values
      * Demonstrates: FeatureUtils.createFeature, setAttribute, LayerUtils.addFeature
      */
-        console.log("Creating new feature for plot:", plotId)
         
         layer.startEditing()
         
