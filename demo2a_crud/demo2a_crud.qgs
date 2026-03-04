@@ -1,5 +1,5 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis projectname="Demo2a CRUD" saveDateTime="2026-02-28T11:59:38" saveUserFull="Hillers Heather" saveUser="hil" version="3.42.2-Münster">
+<qgis projectname="Demo2a CRUD" saveDateTime="2026-03-02T09:53:43" saveUserFull="Hillers Heather" saveUser="hil" version="3.42.2-Münster">
   <homePath path=""/>
   <title>Demo2a CRUD</title>
   <transaction mode="Disabled"/>
@@ -47,7 +47,6 @@
     </layer-tree-layer>
     <custom-order enabled="0">
       <item>plots_7a7f72ae_2584_4d1a_bef0_842d00720ed6</item>
-      <item>entries_b79c0e8d_b4e9_48af_8db8_4a630d1372cf</item>
     </custom-order>
   </layer-tree-group>
   <snapping-settings self-snapping="0" minScale="0" maxScale="0" intersection-snapping="0" unit="1" enabled="0" type="1" mode="2" tolerance="12" scaleDependencyMode="0">
@@ -642,6 +641,8 @@
           <column hidden="0" width="-1" type="field" name="d3"/>
           <column hidden="0" width="-1" type="field" name="d4"/>
           <column hidden="0" width="-1" type="field" name="date"/>
+          <column hidden="0" width="-1" type="field" name="plot_id"/>
+          <column hidden="0" width="-1" type="field" name="log_date"/>
           <column hidden="1" width="-1" type="actions"/>
         </columns>
       </attributetableconfig>
@@ -666,18 +667,6 @@
       <mapTip enabled="1"></mapTip>
     </maplayer>
     <maplayer labelsEnabled="1" readOnly="0" simplifyDrawingHints="0" refreshOnNotifyMessage="" wkbType="Point" autoRefreshTime="0" minScale="100000000" styleCategories="AllStyleCategories" refreshOnNotifyEnabled="0" simplifyDrawingTol="1" type="vector" hasScaleBasedVisibilityFlag="0" geometry="Point" simplifyAlgorithm="0" legendPlaceholderImage="" autoRefreshMode="Disabled" symbologyReferenceScale="-1" simplifyMaxScale="1" maxScale="0" simplifyLocal="1">
-      <extent>
-        <xmin>315626.13824465801008046</xmin>
-        <ymin>5664511.4254922904074192</ymin>
-        <xmax>325038.59743380197323859</xmax>
-        <ymax>5668699.53806727007031441</ymax>
-      </extent>
-      <wgs84extent>
-        <xmin>6.36431622364906779</xmin>
-        <ymin>51.10240343847085143</ymin>
-        <xmax>6.50076173186937822</xmax>
-        <ymax>51.1429779970085292</ymax>
-      </wgs84extent>
       <id>plots_7a7f72ae_2584_4d1a_bef0_842d00720ed6</id>
       <datasource>./vegetation.gpkg|layername=plots</datasource>
       <keywordList>
@@ -1260,7 +1249,6 @@ def my_form_open(dialog, layer, feature):
   </projectlayers>
   <layerorder>
     <layer id="plots_7a7f72ae_2584_4d1a_bef0_842d00720ed6"/>
-    <layer id="entries_b79c0e8d_b4e9_48af_8db8_4a630d1372cf"/>
   </layerorder>
   <labelEngineSettings/>
   <properties>
