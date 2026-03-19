@@ -41,13 +41,14 @@ Item {
     // Register map click handler for opening plugin on plot click
     pointHandler.registerHandler("demo5_strata_pages", (point, type, interactionType) => {
       // Platform-specific handling:
-      // - Desktop (windows): Use single click
+      // - Desktop (windows/Ubuntu): Use single click
       // - Mobile (iOS/Android): Use double-click (single click conflicts with QField's map interaction)
       // Note: Desktop QField doesn't register double-clicks properly, but mobile does
       // See: https://github.com/opengisch/QField/issues/6866
       
-      var shouldHandle = (Qt.platform.os === "windows" && interactionType === "clicked") ||
-                         (Qt.platform.os !== "windows" && interactionType === "doubleClicked")
+      var isMobile = Qt.platform.os === "ios" || Qt.platform.os === "android"
+      var shouldHandle = (isMobile && interactionType === "doubleClicked") ||
+                          (!isMobile && interactionType === "clicked")     
       
       if (shouldHandle) {
         // Create buffer area around click point for spatial query

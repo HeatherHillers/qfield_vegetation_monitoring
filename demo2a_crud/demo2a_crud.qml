@@ -45,8 +45,9 @@ Item {
       // qfield.exe doesnt register doubleclicks or point and hold properly, but ios does.
       // https://github.com/opengisch/QField/issues/6866
       
-      var shouldHandle = (Qt.platform.os === "windows" && interactionType === "clicked") ||
-                         (Qt.platform.os !== "windows" && interactionType === "doubleClicked")
+      var isMobile = Qt.platform.os === "ios" || Qt.platform.os === "android"
+      var shouldHandle = (isMobile && interactionType === "doubleClicked") ||
+                          (!isMobile && interactionType === "clicked")     
       if (shouldHandle) {
         // create a pair of point that'll represent a buffer area within which features are to be searched. 
         let tl = mapCanvas.mapSettings.screenToCoordinate(Qt.point(point.x - 20, point.y - 20))
